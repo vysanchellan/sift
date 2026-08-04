@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sift
+
+Sift is a Next.js 15 (App Router) web application that turns raw Reddit discussions into structured, scored knowledge — mapped to courses and learning paths.
+
+The system is built as a **provider-abstraction architecture**: content **sources** (currently Reddit) and **AI providers** (currently Google Gemini) are interchangeable behind stable interfaces. Swapping a provider should not require changing feature code.
+
+## Tech Stack
+
+- **Next.js 15** — App Router, React Server Components, Turbopack
+- **TypeScript** — strict mode
+- **Tailwind CSS v4** — CSS-first configuration
+- **shadcn/ui** — neutral base theme (`base-nova` style, Base UI, Lucide icons)
+- **ESLint** (flat config, `eslint-config-next`) + **Prettier** (`prettier-plugin-tailwindcss`)
+- **Zod** — runtime schema validation
+- **React Hook Form** + `@hookform/resolvers` — forms
+- **TanStack Query** — server-state management (client components)
+- **TanStack Table** — data tables (e.g. curated threads, course maps)
+- **Framer Motion** — animation
+
+## Folder Structure
+
+Feature-first organization. Each feature owns its domain — components, hooks, schemas, and server actions are colocated with it.
+
+```
+src/
+├── app/                    # Next.js App Router routes
+│   └── (routes)/           # route groups mapped to features
+├── features/               # feature slices (domain-owned code)
+│   ├── reddit/             # Reddit source: ingestion, normalization
+│   ├── ai/                 # AI provider layer + scoring prompts
+│   ├── knowledge-base/     # curated threads, entities, notes
+│   ├── scoring/            # scoring engine + signals
+│   ├── course-mapper/      # course/learning-path mapping
+│   └── dashboard/          # dashboard UI
+├── components/             # shared UI primitives (shadcn/ui)
+│   └── ui/
+├── lib/                    # framework glue, utilities, providers
+├── server/                 # server-only code (db, auth, env)
+└── types/                  # shared TypeScript types
+```
+
+## Provider Abstraction
+
+Sift never talks to an external service directly from a feature. Every integration lives behind an interface defined in the codebase, and features depend on the interface, not the implementation.
+
+### Sources (content providers)
+
+Implement the `SourceAdapter` contract (discover content, normalize it into the internal domain model, enrich with metadata). Currently implemented: `RedditSource`. Sources are registered in a registry so the rest of the app is source-agnostic.
+
+### AI Providers
+
+Implement the `AIProvider` interface (e.g. summarize, extract entities, score). Currently implemented: `GeminiProvider`. Additional providers (OpenAI, Anthropic, local models) can be added by implementing the same interface and registering them.
+
+### Why
+
+- **Pluggable**: swap Reddit for another source, or Gemini for another model, without touching feature code.
+- **Testable**: mock the interface, not the network.
+- **Resilient**: add fallback providers, rate limiting, and caching at the boundary.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
+cp .env.example .env.local   # fill in your provider credentials
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See `.env.example`. All variables are provider credentials — the app does not start a background sync or connect to any external service until those features are built.
 
-## Learn More
+## Scripts
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command            | Description                    |
+| ------------------ | ------------------------------ |
+| `npm run dev`      | Start dev server (Turbopack)   |
+| `npm run build`    | Production build               |
+| `npm run start`    | Serve production build         |
+| `npm run lint`     | ESLint                         |
+| `npm run format`   | Prettier write                 |
+| `npm run format:check` | Prettier check             |

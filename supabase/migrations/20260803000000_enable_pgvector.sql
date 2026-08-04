@@ -1,0 +1,2 @@
+-- Enable the pgvector extension for vector similarity search.
+create extension if not exists vector;
