@@ -98,24 +98,35 @@ async function checkKBEmbeddingProvider(): Promise<HealthCheckResult> {
 }
 
 export async function GET() {
-  const results = await Promise.allSettled([
-    checkSupabaseConnection(),
-    checkSupabaseAuth(),
-    checkRedditRSS(),
-    checkGeminiAPI(),
-    checkLocalEmbeddings(),
-    checkKBEmbeddingProvider(),
-  ])
+  let healthChecks: HealthCheckResult[] = []
+  let overallStatus: 'healthy' | 'degraded' | 'unhealthy' = 'unhealthy'
 
-  const healthChecks: HealthCheckResult[] = results.map((r) =>
-    r.status === 'fulfilled' ? r.value : { name: 'Unknown', status: 'down', error: String(r.reason) }
-  )
+  try {
+    const results = await Promise.allSettled([
+      checkSupabaseConnection(),
+      checkSupabaseAuth(),
+      checkRedditRSS(),
+      checkGeminiAPI(),
+      checkLocalEmbeddings(),
+      checkKBEmbeddingProvider(),
+    ])
 
-  const overallStatus = healthChecks.every((c) => c.status === 'ok')
-    ? 'healthy'
-    : healthChecks.some((c) => c.status === 'ok')
-      ? 'degraded'
-      : 'unhealthy'
+    healthChecks = results.map((r) =>
+      r.status === 'fulfilled' ? r.value : { name: 'Unknown', status: 'down', error: String(r.reason) }
+    )
+
+    overallStatus = healthChecks.every((c) => c.status === 'ok')
+      ? 'healthy'
+      : healthChecks.some((c) => c.status === 'ok')
+        ? 'degraded'
+        : 'unhealthy'
+  } catch (error) {
+    // If even the Promise.allSettled fails (extremely unlikely), return a minimal response
+    healthChecks = [
+      { name: 'Health Check System', status: 'down', error: String(error) },
+    ]
+    overallStatus = 'unhealthy'
+  }
 
   const statusCode = overallStatus === 'healthy' ? 200 : overallStatus === 'degraded' ? 200 : 503
 
