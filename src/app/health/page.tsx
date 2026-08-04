@@ -23,7 +23,8 @@ const STATUS_CONFIG = {
 }
 
 async function fetchHealth(): Promise<HealthResponse> {
-  const res = await fetch('/api/health', { cache: 'no-store' })
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+  const res = await fetch(`${baseUrl}/api/health`, { cache: 'no-store' })
   return res.json()
 }
 
