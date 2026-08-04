@@ -12,18 +12,18 @@ import {
 /**
  * Resolves the embedding provider used by the knowledge base, config-swappable
  * via `KB_EMBEDDING_PROVIDER`:
- *   - `local` (default) → LocalTransformersAIProvider (all-MiniLM-L6-v2, 384)
- *   - `gemini`          → GeminiAIProvider.embed (gemini-embedding-001, 3072)
+ *   - `local` (default for local dev) → LocalTransformersAIProvider (all-MiniLM-L6-v2, 384)
+ *   - `gemini` (default for Vercel)   → GeminiAIProvider.embed (gemini-embedding-001, 3072)
  *
- * Local is the default: it is quota-free, private, and deterministic, so bulk
- * ingestion cannot hit the Gemini free-tier rate limit. The provider is
- * registered in the shared registry once per process. When switching to
- * `gemini`, the embedding vector column dimension must match the Gemini
- * model's output (3072), see the migration comments.
+ * On Vercel, the default is `gemini` because the local provider requires native
+ * ONNX Runtime binaries (`libonnxruntime.so`) that are not available in the
+ * serverless environment. Set `KB_EMBEDDING_PROVIDER=local` explicitly only for
+ * local development. When using `gemini`, the embedding vector column must be
+ * 3072 dimensions (see migration comments).
  */
 
 export const KB_EMBEDDING_PROVIDER_ENV = 'KB_EMBEDDING_PROVIDER'
-export const KB_DEFAULT_EMBEDDING_PROVIDER = 'local'
+export const KB_DEFAULT_EMBEDDING_PROVIDER = process.env.VERCEL ? 'gemini' : 'local'
 
 const registryKey = 'knowledge-base-embedding'
 

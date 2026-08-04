@@ -4,7 +4,7 @@ import { RefreshCw, CheckCircle, AlertCircle, AlertTriangle } from 'lucide-react
 
 interface HealthCheckResult {
   name: string
-  status: 'ok' | 'degraded' | 'down'
+  status: 'ok' | 'degraded' | 'down' | 'na'
   latencyMs?: number
   error?: string
   details?: Record<string, unknown>
@@ -20,6 +20,7 @@ const STATUS_CONFIG = {
   ok: { label: 'Operational', icon: CheckCircle, variant: 'success' as const, color: 'text-green-600' },
   degraded: { label: 'Degraded', icon: AlertTriangle, variant: 'warning' as const, color: 'text-amber-600' },
   down: { label: 'Down', icon: AlertCircle, variant: 'destructive' as const, color: 'text-red-600' },
+  na: { label: 'Not Applicable', icon: AlertTriangle, variant: 'secondary' as const, color: 'text-muted-foreground' },
 }
 
 async function fetchHealth(): Promise<HealthResponse> {

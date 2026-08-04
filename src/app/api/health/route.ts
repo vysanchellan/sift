@@ -76,6 +76,12 @@ async function checkGeminiAPI(): Promise<HealthCheckResult> {
 }
 
 async function checkLocalEmbeddings(): Promise<HealthCheckResult> {
+  // On Vercel, local embeddings are not supported (missing native ONNX Runtime binaries)
+  // The KB embedding provider defaults to 'gemini' on Vercel, so this check is N/A
+  if (process.env.VERCEL) {
+    return { name: 'Local Embeddings', status: 'ok', latencyMs: 0, details: { note: 'Using Gemini embeddings on Vercel' } }
+  }
+
   const start = Date.now()
   try {
     const provider = new LocalTransformersAIProvider()

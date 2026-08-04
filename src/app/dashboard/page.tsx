@@ -7,6 +7,7 @@ import { DiscussionsSection } from '@/features/dashboard/components/discussions-
 import { Overview } from '@/features/dashboard/components/overview'
 import { useDashboardOverview } from '@/features/dashboard/hooks'
 import { ImportNowButton } from '@/features/reddit/import-now'
+import { SourceManager } from '@/features/reddit/source-manager'
 
 const INITIAL_FILTERS: DiscussionFeedFilters = {
   sourceId: null,
@@ -53,6 +54,8 @@ export default function DashboardPage() {
         onSelectSource={(sourceId) => patchFilters({ sourceId, page: 1 })}
         onSelectTopic={(topic) => patchFilters({ topic, page: 1 })}
       />
+
+      <SourceManager />
 
       <DiscussionsSection filters={filters} onChange={patchFilters} />
     </div>
