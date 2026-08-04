@@ -80,17 +80,17 @@ function contentIdeas(ideas: ContentIdeas) {
     )
   }
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-4">
       {entries.map(([key, idea]) => {
         const Icon = IDEA_ICONS[key] ?? Lightbulb
         return (
-          <li key={key} className="space-y-0.5">
+          <li key={key} className="space-y-1">
             <div className="flex items-center gap-2">
               <Icon className="text-muted-foreground size-4" />
               <p className="font-medium capitalize">{key}</p>
             </div>
-            <p className="pl-6 font-medium">{idea.title}</p>
-            <p className="text-muted-foreground pl-6 text-sm">{idea.reason}</p>
+            <p className="pl-6 font-medium text-sm">{idea.title}</p>
+            <p className="text-muted-foreground pl-6 text-sm leading-relaxed">{idea.reason}</p>
           </li>
         )
       })}
@@ -108,13 +108,13 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-6">
         <SkeletonList rows={3} />
         <div className="grid gap-4 lg:grid-cols-2">
-          <div className="rounded-lg border p-4">
+          <div className="rounded-lg border p-5">
             <SkeletonList rows={4} />
           </div>
-          <div className="rounded-lg border p-4">
+          <div className="rounded-lg border p-5">
             <SkeletonList rows={4} />
           </div>
         </div>
@@ -144,16 +144,16 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
     <div className="space-y-6">
       <Link
         href="/dashboard"
-        className="text-muted-foreground hover:text-foreground focus-visible:ring-ring inline-flex items-center gap-1 text-sm outline-none focus-visible:ring-2"
+        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm font-medium transition-colors focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none rounded-md px-1"
       >
         <ArrowLeft className="size-4" />
         Back to dashboard
       </Link>
 
-      <section aria-label="Discussion" className="space-y-2">
-        <h1 className="text-2xl font-semibold">{discussion.title}</h1>
-        <div className="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-          {discussion.sourceName && <span>{discussion.sourceName}</span>}
+      <section aria-label="Discussion" className="space-y-3">
+        <h1 className="text-2xl font-semibold tracking-tight">{discussion.title}</h1>
+        <div className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+          {discussion.sourceName && <span className="font-medium">{discussion.sourceName}</span>}
           {discussion.subreddit && <span>r/{discussion.subreddit}</span>}
           {discussion.author && <span>by {discussion.author}</span>}
           {published && <span>{new Date(published).toLocaleString()}</span>}
@@ -165,7 +165,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
               href={discussion.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 underline underline-offset-2"
+              className="inline-flex items-center gap-1 text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
             >
               Open original
               <ExternalLink className="size-3" />
@@ -175,19 +175,19 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card>
+        <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle>Summary</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {discussion.summary ? (
-              <p className="text-sm">{discussion.summary}</p>
+              <p className="text-sm leading-relaxed">{discussion.summary}</p>
             ) : (
               <p className="text-muted-foreground text-sm">
                 No summary yet. Run the enrichment pipeline to generate one.
               </p>
             )}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap gap-2">
               {discussion.category ? (
                 <Badge variant="outline" className="capitalize">
                   {discussion.category}
@@ -203,14 +203,16 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
             </div>
             {discussion.body && (
               <details className="text-muted-foreground text-sm">
-                <summary className="cursor-pointer">Read the full post</summary>
-                <p className="mt-2 whitespace-pre-wrap">{discussion.body}</p>
+                <summary className="cursor-pointer hover:text-foreground transition-colors">
+                  Read the full post
+                </summary>
+                <p className="mt-2 whitespace-pre-wrap leading-relaxed">{discussion.body}</p>
               </details>
             )}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               Priority score
@@ -218,10 +220,10 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
             </CardTitle>
             <CardDescription>Transparent 0–100 score with per-factor reasoning.</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-4">
             <ScoreBreakdown components={discussion.priorityComponents} />
             {data.priorityReasoning ? (
-              <p className="text-muted-foreground border-t pt-3 text-sm">
+              <p className="text-muted-foreground border-t pt-3 text-sm leading-relaxed">
                 {data.priorityReasoning}
               </p>
             ) : (
@@ -239,7 +241,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle>Knowledge base coverage</CardTitle>
             <CardDescription>
@@ -252,24 +254,24 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
               similarity={discussion.coverageSimilarity}
             />
             {data.matchedContent ? (
-              <p className="text-muted-foreground text-sm">
-                Best match: “
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Best match: &ldquo;
                 {data.matchedContent.length > 280
                   ? `${data.matchedContent.slice(0, 280)}…`
                   : data.matchedContent}
-                ”
+                &rdquo;
               </p>
             ) : (
               <p className="text-muted-foreground text-sm">
                 {discussion.coverageStatus
                   ? 'No matched content excerpt is stored for this verdict.'
-                  : 'Not compared yet. Run “Compare discussions against KB” from the Knowledge base page.'}
+                  : 'Not compared yet. Run &ldquo;Compare discussions against KB&rdquo; from the Knowledge base page.'}
               </p>
             )}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="text-muted-foreground size-4" />
@@ -282,7 +284,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
                 <Badge variant={ACTION_BADGE[recommendations.action.tone] ?? 'default'}>
                   {recommendations.action.label}
                 </Badge>
-                <p className="text-sm">{recommendations.action.reason}</p>
+                <p className="text-sm leading-relaxed">{recommendations.action.reason}</p>
               </>
             ) : null}
           </CardContent>
@@ -290,7 +292,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card>
+        <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <MessageSquare className="text-muted-foreground size-4" />
@@ -302,8 +304,8 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
             {recommendations ? (
               <ol className="space-y-2">
                 {recommendations.responseOutline.map((step, index) => (
-                  <li key={index} className="text-muted-foreground flex gap-2 text-sm">
-                    <span className="text-foreground/40 tabular-nums">{index + 1}.</span>
+                  <li key={index} className="text-muted-foreground flex gap-3 text-sm leading-relaxed">
+                    <span className="text-foreground/40 mt-0.5 tabular-nums shrink-0">{index + 1}.</span>
                     <span>{step}</span>
                   </li>
                 ))}
@@ -314,7 +316,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Lightbulb className="text-muted-foreground size-4" />
@@ -328,7 +330,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
         </Card>
       </div>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BookOpen className="text-muted-foreground size-4" />
@@ -341,18 +343,17 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
         <CardContent>
           {data.courseMatches.length === 0 ? (
             <p className="text-muted-foreground text-sm">
-              No course matches yet. Add courses and run “Match course content” from the Courses
-              page.
+              No course matches yet. Add courses and run &ldquo;Match course content&rdquo; from the Courses page.
             </p>
           ) : (
             <ul className="space-y-2">
               {data.courseMatches.map((match) => (
                 <li
                   key={match.id}
-                  className="bg-muted/30 flex items-center justify-between gap-3 rounded-md border px-3 py-2"
+                  className="bg-muted/30 flex items-center justify-between gap-3 rounded-md border px-4 py-3 transition-colors hover:bg-muted/50"
                 >
                   <div className="min-w-0">
-                    <p className="truncate font-medium">
+                    <p className="truncate font-medium text-sm">
                       {match.lessonTitle
                         ? `${match.sectionTitle ?? 'Section'} → ${match.lessonTitle}`
                         : (match.sectionTitle ?? 'Untitled section')}
@@ -362,7 +363,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
                     )}
                   </div>
                   {match.score != null && (
-                    <span className="text-muted-foreground shrink-0 text-xs tabular-nums">
+                    <span className="text-muted-foreground shrink-0 text-xs tabular-nums font-medium">
                       {(match.score * 100).toFixed(0)}%
                     </span>
                   )}
@@ -373,7 +374,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           <p className="mt-4 text-sm">
             <Link
               href="/dashboard/courses"
-              className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 underline underline-offset-2"
+              className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 underline underline-offset-2 transition-colors"
             >
               <Newspaper className="size-3" />
               Manage courses

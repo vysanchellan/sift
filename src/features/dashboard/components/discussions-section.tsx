@@ -33,16 +33,16 @@ export function DiscussionsSection({
   return (
     <section aria-labelledby="discussions-heading" className="space-y-4">
       <div>
-        <h2 id="discussions-heading" className="text-lg font-semibold">
+        <h2 id="discussions-heading" className="text-lg font-semibold tracking-tight">
           Discussions
         </h2>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-muted-foreground mt-1 text-sm">
           Filter and review every imported discussion by priority, source, category, coverage, and
           date.
         </p>
       </div>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardContent className="space-y-3 pt-4">
           <FilterBar
             filters={filters}

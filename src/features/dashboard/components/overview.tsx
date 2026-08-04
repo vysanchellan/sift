@@ -49,23 +49,25 @@ export function Overview({
     {
       key: 'sources',
       icon: <MessagesSquare className="text-muted-foreground size-4" />,
-      title: 'Most active sources today',
-      description: 'By number of discussions published today.',
+      title: 'Most active sources',
+      description: 'By discussion count published today.',
       body:
         data.sourcesToday.length === 0 ? (
           <p className="text-muted-foreground text-sm">No discussion activity today.</p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {data.sourcesToday.map((source) => (
               <li key={source.id}>
                 <button
                   type="button"
                   onClick={() => onSelectSource(source.id)}
-                  className="hover:bg-muted/50 focus-visible:ring-ring flex w-full items-center justify-between gap-2 rounded-md px-1 py-1 text-left text-sm outline-none focus-visible:ring-2"
+                  className="hover:bg-accent/50 focus-visible:ring-ring group flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none transition-colors focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium">{source.name}</span>
+                  <span className="min-w-0 truncate font-medium group-hover:text-primary">
+                    {source.name}
+                  </span>
                   <span className="text-muted-foreground flex shrink-0 items-center gap-2 text-xs">
-                    <span>{compact(source.comments)} comments</span>
+                    <span className="tabular-nums">{compact(source.comments)}</span>
                     <Badge variant="outline" className="tabular-nums">
                       {source.count}
                     </Badge>
@@ -87,14 +89,16 @@ export function Overview({
             No scored discussions yet. Run the scoring pipeline.
           </p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {data.topPriority.map((discussion) => (
               <li key={discussion.id}>
                 <Link
                   href={`/dashboard/discussions/${discussion.id}`}
-                  className="hover:bg-muted/50 focus-visible:ring-ring flex items-center justify-between gap-2 rounded-md px-1 py-1 text-sm outline-none focus-visible:ring-2"
+                  className="hover:bg-accent/50 focus-visible:ring-ring group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm outline-none transition-colors focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium">{discussion.title}</span>
+                  <span className="min-w-0 truncate font-medium group-hover:text-primary">
+                    {discussion.title}
+                  </span>
                   <ScoreBadge score={discussion.priorityScore} />
                 </Link>
               </li>
@@ -113,15 +117,17 @@ export function Overview({
             No rising topics yet. Run trend detection.
           </p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {data.trendingTopics.map((trend) => (
               <li key={trend.topic}>
                 <button
                   type="button"
                   onClick={() => onSelectTopic(trend.topic)}
-                  className="hover:bg-muted/50 focus-visible:ring-ring flex w-full items-center justify-between gap-2 rounded-md px-1 py-1 text-left text-sm outline-none focus-visible:ring-2"
+                  className="hover:bg-accent/50 focus-visible:ring-ring group flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none transition-colors focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium">{trend.topic}</span>
+                  <span className="min-w-0 truncate font-medium group-hover:text-primary">
+                    {trend.topic}
+                  </span>
                   <span className="flex shrink-0 items-center gap-2 text-xs">
                     <Badge variant="success">{pctChange(trend.volumeChange)}</Badge>
                   </span>
@@ -142,14 +148,16 @@ export function Overview({
             No low-competition, high-intent picks right now.
           </p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {data.opportunities.map((discussion) => (
               <li key={discussion.id}>
                 <Link
                   href={`/dashboard/discussions/${discussion.id}`}
-                  className="hover:bg-muted/50 focus-visible:ring-ring flex items-center justify-between gap-2 rounded-md px-1 py-1 text-sm outline-none focus-visible:ring-2"
+                  className="hover:bg-accent/50 focus-visible:ring-ring group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm outline-none transition-colors focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium">{discussion.title}</span>
+                  <span className="min-w-0 truncate font-medium group-hover:text-primary">
+                    {discussion.title}
+                  </span>
                   <ScoreBadge score={discussion.priorityScore} />
                 </Link>
               </li>
@@ -169,15 +177,15 @@ export function Overview({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, delay: index * 0.06, ease: 'easeOut' }}
           >
-            <Card className="h-full">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+            <Card className="h-full border-border/60 shadow-sm transition-shadow hover:shadow-md">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-sm">
                   {card.icon}
                   {card.title}
                 </CardTitle>
-                <CardDescription>{card.description}</CardDescription>
+                <CardDescription className="text-xs">{card.description}</CardDescription>
               </CardHeader>
-              <CardContent>{card.body}</CardContent>
+              <CardContent className="pt-0">{card.body}</CardContent>
             </Card>
           </motion.div>
         ))}

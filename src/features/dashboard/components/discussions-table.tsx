@@ -31,15 +31,17 @@ const columns = [
   columnHelper.accessor('title', {
     header: 'Discussion',
     cell: ({ row, getValue }) => (
-      <div className="max-w-md min-w-0">
+      <div className="min-w-0 max-w-md">
         <Link
           href={`/dashboard/discussions/${row.original.id}`}
-          className="font-medium hover:underline"
+          className="font-medium text-foreground hover:underline hover:text-primary transition-colors"
         >
           {String(getValue())}
         </Link>
         {row.original.summary && (
-          <p className="text-muted-foreground truncate text-xs">{row.original.summary}</p>
+          <p className="text-muted-foreground line-clamp-2 mt-0.5 text-xs leading-relaxed">
+            {row.original.summary}
+          </p>
         )}
       </div>
     ),
@@ -49,7 +51,7 @@ const columns = [
     cell: ({ row }) => {
       const name =
         row.original.sourceName ?? (row.original.subreddit ? `r/${row.original.subreddit}` : null)
-      return <span className="text-muted-foreground truncate">{name ?? '—'}</span>
+      return <span className="text-muted-foreground truncate text-sm">{name ?? '—'}</span>
     },
   }),
   columnHelper.accessor('category', {
@@ -60,7 +62,7 @@ const columns = [
           {row.original.category}
         </Badge>
       ) : (
-        <span className="text-muted-foreground">—</span>
+        <span className="text-muted-foreground text-sm">—</span>
       ),
   }),
   columnHelper.accessor('priorityScore', {
@@ -79,7 +81,7 @@ const columns = [
   columnHelper.accessor('numComments', {
     header: 'Engagement',
     cell: ({ row }) => (
-      <span className="text-muted-foreground whitespace-nowrap tabular-nums">
+      <span className="text-muted-foreground whitespace-nowrap tabular-nums text-sm">
         {row.original.numComments} comments · {row.original.score} pts
       </span>
     ),
@@ -128,47 +130,53 @@ export function DiscussionsTable({
   return (
     <div className="space-y-3">
       {isLoading ? (
-        <div className="rounded-lg border p-4">
+        <div className="rounded-lg border">
           <SkeletonList rows={5} />
         </div>
       ) : isError ? (
         <DashboardError message={error ?? 'Could not load discussions.'} />
       ) : items.length === 0 ? (
-        <div className="rounded-lg border">
-          <DashboardEmpty
-            title="No discussions match"
-            description="Try clearing or widening your filters, or import more discussions first."
-          />
-        </div>
+        <DashboardEmpty
+          title="No discussions match"
+          description="Try clearing or widening your filters, or import more discussions first."
+        />
       ) : (
         <>
           <p className="text-muted-foreground text-sm" aria-live="polite">
             {total} discussion{total === 1 ? '' : 's'}
           </p>
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id} className="text-xs uppercase">
-                      {flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <div className="rounded-lg border">
+            <Table>
+              <TableHeader>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <TableHead
+                        key={header.id}
+                        className="text-xs font-semibold uppercase tracking-wider"
+                      >
+                        {flexRender(header.column.columnDef.header, header.getContext())}
+                      </TableHead>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableHeader>
+              <TableBody>
+                {table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    className="hover:bg-accent/50 transition-colors"
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="align-top">
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
 
           <nav aria-label="Table pagination" className="flex items-center justify-between gap-3">
             <Button
@@ -181,7 +189,7 @@ export function DiscussionsTable({
               <ArrowLeft />
               Previous
             </Button>
-            <span className="text-muted-foreground text-sm">
+            <span className="text-muted-foreground text-sm tabular-nums">
               Page {page} of {totalPages}
             </span>
             <Button

@@ -59,7 +59,7 @@ export function FilterBar({
     return (
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, index) => (
-          <Skeleton key={index} className="h-8" />
+          <Skeleton key={index} className="h-10" />
         ))}
       </div>
     )
@@ -70,10 +70,12 @@ export function FilterBar({
   }
 
   return (
-    <div className="space-y-3">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="space-y-1">
-          <Label htmlFor="filter-source">Source</Label>
+    <div className="space-y-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="space-y-1.5">
+          <Label htmlFor="filter-source" className="text-xs font-medium">
+            Source
+          </Label>
           <Select
             id="filter-source"
             value={filters.sourceId ?? ALL}
@@ -97,8 +99,10 @@ export function FilterBar({
           </Select>
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="filter-category">Category</Label>
+        <div className="space-y-1.5">
+          <Label htmlFor="filter-category" className="text-xs font-medium">
+            Category
+          </Label>
           <Select
             id="filter-category"
             value={filters.category ?? ALL}
@@ -122,64 +126,76 @@ export function FilterBar({
           </Select>
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="filter-min-score">Min priority</Label>
-          <Input
-            id="filter-min-score"
-            type="number"
-            min={0}
-            max={100}
-            placeholder="0"
-            value={filters.minScore ?? ''}
-            onChange={(event) => {
-              const value = event.target.value
-              onChange({
-                minScore: value === '' ? null : Math.min(100, Math.max(0, Number(value))),
-              })
-            }}
-          />
+        <div className="grid grid-cols-2 gap-2">
+          <div className="space-y-1.5">
+            <Label htmlFor="filter-min-score" className="text-xs font-medium">
+              Min priority
+            </Label>
+            <Input
+              id="filter-min-score"
+              type="number"
+              min={0}
+              max={100}
+              placeholder="0"
+              value={filters.minScore ?? ''}
+              onChange={(event) => {
+                const value = event.target.value
+                onChange({
+                  minScore: value === '' ? null : Math.min(100, Math.max(0, Number(value))),
+                })
+              }}
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="filter-max-score" className="text-xs font-medium">
+              Max priority
+            </Label>
+            <Input
+              id="filter-max-score"
+              type="number"
+              min={0}
+              max={100}
+              placeholder="100"
+              value={filters.maxScore ?? ''}
+              onChange={(event) => {
+                const value = event.target.value
+                onChange({
+                  maxScore: value === '' ? null : Math.min(100, Math.max(0, Number(value))),
+                })
+              }}
+            />
+          </div>
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="filter-max-score">Max priority</Label>
-          <Input
-            id="filter-max-score"
-            type="number"
-            min={0}
-            max={100}
-            placeholder="100"
-            value={filters.maxScore ?? ''}
-            onChange={(event) => {
-              const value = event.target.value
-              onChange({
-                maxScore: value === '' ? null : Math.min(100, Math.max(0, Number(value))),
-              })
-            }}
-          />
+        <div className="grid grid-cols-2 gap-2">
+          <div className="space-y-1.5">
+            <Label htmlFor="filter-from" className="text-xs font-medium">
+              From
+            </Label>
+            <Input
+              id="filter-from"
+              type="date"
+              value={filters.from ?? ''}
+              onChange={(event) => onChange({ from: event.target.value || null })}
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="filter-to" className="text-xs font-medium">
+              To
+            </Label>
+            <Input
+              id="filter-to"
+              type="date"
+              value={filters.to ?? ''}
+              onChange={(event) => onChange({ to: event.target.value || null })}
+            />
+          </div>
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="filter-from">From date</Label>
-          <Input
-            id="filter-from"
-            type="date"
-            value={filters.from ?? ''}
-            onChange={(event) => onChange({ from: event.target.value || null })}
-          />
-        </div>
-
-        <div className="space-y-1">
-          <Label htmlFor="filter-to">To date</Label>
-          <Input
-            id="filter-to"
-            type="date"
-            value={filters.to ?? ''}
-            onChange={(event) => onChange({ to: event.target.value || null })}
-          />
-        </div>
-
-        <div className="space-y-1">
-          <Label htmlFor="filter-kb-gap">KB coverage</Label>
+        <div className="space-y-1.5">
+          <Label htmlFor="filter-kb-gap" className="text-xs font-medium">
+            KB coverage
+          </Label>
           <Select
             id="filter-kb-gap"
             value={filters.kbGap ?? 'all'}
@@ -200,8 +216,10 @@ export function FilterBar({
           </Select>
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="filter-sort">Sort by</Label>
+        <div className="space-y-1.5">
+          <Label htmlFor="filter-sort" className="text-xs font-medium">
+            Sort by
+          </Label>
           <div className="flex items-center gap-2">
             <Select
               id="filter-sort"
@@ -244,7 +262,7 @@ export function FilterBar({
                 type="button"
                 onClick={() => onChange({ topic: null })}
                 aria-label={`Remove topic filter ${filters.topic}`}
-                className="hover:text-foreground text-muted-foreground outline-none"
+                className="hover:text-foreground text-muted-foreground outline-none transition-colors"
               >
                 <X className="size-3" />
               </button>
@@ -252,7 +270,7 @@ export function FilterBar({
           )}
           {hasActiveFilters && (
             <Button type="button" variant="ghost" size="sm" onClick={onReset}>
-              <RotateCcw />
+              <RotateCcw className="size-3" />
               Reset filters
             </Button>
           )}
