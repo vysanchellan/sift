@@ -68,7 +68,7 @@ export function SourceManager() {
   }
 
   return (
-    <Card className="w-full border-border/60 shadow-sm">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Plus className="size-4" />
@@ -112,7 +112,7 @@ export function SourceManager() {
             Example: <code className="px-1 bg-sand-200 dark:bg-sand-800 rounded">programming, typescript, rust</code> &mdash;
             names are normalized (lowercase, no &ldquo;r/&rdquo; prefix).
           </p>
-          <Button type="submit" disabled={creating} className="w-full sm:w-auto bg-bush-600 hover:bg-bush-700 dark:bg-bush-500 dark:hover:bg-bush-400 dark:text-bush-950">
+          <Button type="submit" disabled={creating} className="w-full sm:w-auto">
             {creating ? <Loader2 className="size-4 animate-spin" /> : 'Add source'}
           </Button>
         </form>

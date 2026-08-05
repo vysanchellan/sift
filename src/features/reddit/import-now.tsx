@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/toast'
+import { RefreshCw } from 'lucide-react'
 
 import { importNow, type ImportNowResult } from './actions'
 
@@ -49,7 +50,8 @@ export function ImportNowButton() {
 
   return (
     <div className="space-y-2">
-      <Button type="button" onClick={handleImport} disabled={pending}>
+      <Button type="button" size="lg" onClick={handleImport} disabled={pending}>
+        <RefreshCw className={pending ? 'animate-spin' : undefined} />
         {pending ? 'Importing…' : 'Import Reddit posts'}
       </Button>
     </div>

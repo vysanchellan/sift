@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { Bricolage_Grotesque, Inter } from 'next/font/google'
-import { ThemeProvider } from 'next-themes'
+import { Playfair_Display, Inter } from 'next/font/google'
 import { QueryProvider } from '@/components/query-provider'
 import { ToastProvider } from '@/components/ui/toast'
 import './globals.css'
 
-const display = Bricolage_Grotesque({
-  variable: '--font-display',
+const serif = Playfair_Display({
+  variable: '--font-serif',
   subsets: ['latin'],
+  display: 'swap',
 })
 
 const sans = Inter({
@@ -26,13 +26,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${display.variable} ${sans.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          <QueryProvider>
-            <ToastProvider>{children}</ToastProvider>
-          </QueryProvider>
-        </ThemeProvider>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className={`${serif.variable} ${sans.variable} antialiased`}>
+        <QueryProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </QueryProvider>
       </body>
     </html>
   )

@@ -19,7 +19,7 @@ function Similarity({ score }: { score: number | null }) {
       ? 'border-bush-600/30 bg-bush-600/10 text-bush-700 dark:border-bush-400/30 dark:bg-bush-400/10 dark:text-bush-300'
       : Number(score) >= 0.3
         ? 'border-bay-600/30 bg-bay-600/10 text-bay-700 dark:border-bay-400/30 dark:bg-bay-400/10 dark:text-bay-300'
-        : 'border-red-600/30 bg-red-600/10 text-red-700 dark:border-red-400/30 dark:bg-red-400/10 dark:text-red-300'
+        : 'border-red-800/40 bg-red-800/10 text-red-300/90 dark:border-red-700/40 dark:bg-red-700/10 dark:text-red-400/90'
   return (
     <span
       className={`inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-xs font-medium ${tone}`}
@@ -56,7 +56,7 @@ export default async function CourseMapperPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="border-border/60 shadow-sm">
+        <Card>
           <CardHeader>
             <CardTitle>New course</CardTitle>
             <CardDescription>
@@ -68,7 +68,7 @@ export default async function CourseMapperPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-border/60 shadow-sm">
+        <Card>
           <CardHeader>
             <CardTitle>Import outline</CardTitle>
             <CardDescription>
@@ -82,7 +82,7 @@ export default async function CourseMapperPage() {
         </Card>
       </div>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Match course content to discussions</CardTitle>
           <CardDescription>
@@ -95,7 +95,7 @@ export default async function CourseMapperPage() {
         </CardContent>
       </Card>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Courses</CardTitle>
           <CardDescription>Sections with the discussions they already answer.</CardDescription>
@@ -184,7 +184,7 @@ export default async function CourseMapperPage() {
         </CardContent>
       </Card>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Candidate new lessons</CardTitle>
           <CardDescription>

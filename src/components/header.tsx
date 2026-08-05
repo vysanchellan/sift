@@ -6,9 +6,6 @@ import { usePathname } from 'next/navigation'
 import { Menu } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { Button } from '@/components/ui/button'
-import { ThemeToggle } from '@/components/theme-toggle'
-
 const LINKS = [
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/dashboard/account', label: 'Account' },
@@ -22,9 +19,12 @@ export function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-5">
-        <Link href="/dashboard" className="font-display font-bold text-lg tracking-tight">
+        <Link
+          href="/dashboard"
+          className="font-display text-lg font-semibold tracking-tight text-foreground"
+        >
           Sift
         </Link>
 
@@ -36,20 +36,14 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <Button variant="outline" size="sm" className="hidden sm:inline-flex">
-            Get a Quote
-          </Button>
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu className="size-5" />
-          </button>
-        </div>
+        <button
+          type="button"
+          className="md:hidden inline-flex items-center justify-center rounded-md border border-border p-2 text-muted-foreground hover:text-foreground transition-colors"
+          onClick={() => setOpen(true)}
+          aria-label="Open menu"
+        >
+          <Menu className="size-5" />
+        </button>
       </div>
 
       <AnimatePresence>
@@ -59,7 +53,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden border-b bg-background/95 backdrop-blur"
+            className="md:hidden border-b border-border bg-background/95 backdrop-blur"
           >
             <div className="mx-auto flex max-w-6xl flex-col gap-1 p-4">
               {LINKS.map((link) => (
@@ -69,8 +63,8 @@ export function Header() {
                   onClick={() => setOpen(false)}
                   className={`rounded-md px-3 py-2 text-sm transition-colors ${
                     pathname === link.href
-                      ? 'bg-accent text-accent-foreground'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+                      ? 'text-bush-500'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                   }`}
                 >
                   {link.label}
@@ -96,13 +90,20 @@ function NavLink({
   return (
     <Link
       href={href}
-      className={`rounded-md px-3 py-2 text-sm transition-colors ${
+      aria-current={active ? 'page' : undefined}
+      className={`relative rounded-md px-3 py-2 text-sm transition-colors ${
         active
-          ? 'bg-accent text-accent-foreground'
-          : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+          ? 'text-bush-500'
+          : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
       }`}
     >
       {children}
+      {active && (
+        <motion.span
+          layoutId="nav-underline"
+          className="absolute inset-x-3 -bottom-px h-px bg-bush-500"
+        />
+      )}
     </Link>
   )
 }

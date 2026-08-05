@@ -177,7 +177,7 @@ export function Overview({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, delay: index * 0.06, ease: 'easeOut' }}
           >
-            <Card className="h-full border-border/60 shadow-sm transition-shadow hover:shadow-md hover:shadow-bush-900/10">
+            <Card className="h-full transition-colors hover:border-border/80">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-sm">
                   {card.icon}

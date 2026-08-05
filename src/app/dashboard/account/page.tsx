@@ -22,7 +22,7 @@ export default async function AccountPage() {
     <div className="space-y-6">
       <h1 className="text-2xl font-semibold tracking-tight">Account</h1>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Profile</CardTitle>
           <CardDescription>Your account details</CardDescription>
@@ -49,7 +49,7 @@ export default async function AccountPage() {
         </CardContent>
       </Card>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Session</CardTitle>
           <CardDescription>Sign out of this device</CardDescription>

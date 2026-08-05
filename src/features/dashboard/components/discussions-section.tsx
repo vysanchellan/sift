@@ -42,7 +42,7 @@ export function DiscussionsSection({
         </p>
       </div>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardContent className="space-y-3 pt-4">
           <FilterBar
             filters={filters}

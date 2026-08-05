@@ -71,6 +71,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       {children}
       <Toaster
         position="bottom-right"
+        theme="dark"
         toastOptions={{
           classNames: {
             toast: 'group',

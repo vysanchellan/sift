@@ -59,7 +59,7 @@ function SelectPopup({ className, ...props }: SelectPrimitive.Popup.Props) {
         <SelectPrimitive.Popup
           data-slot="select-popup"
           className={cn(
-            'bg-card text-card-foreground rounded-lg border p-1 shadow-lg outline-none',
+            'bg-card text-card-foreground rounded-lg border p-1 shadow-sm outline-none',
             className
           )}
           {...props}

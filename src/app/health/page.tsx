@@ -19,7 +19,7 @@ interface HealthResponse {
 const STATUS_CONFIG = {
   ok: { label: 'Operational', icon: CheckCircle, variant: 'default' as const, color: 'text-bush-700 dark:text-bush-400' },
   degraded: { label: 'Degraded', icon: AlertTriangle, variant: 'warning' as const, color: 'text-bay-700 dark:text-bay-400' },
-  down: { label: 'Down', icon: AlertCircle, variant: 'destructive' as const, color: 'text-red-600 dark:text-red-400' },
+  down: { label: 'Down', icon: AlertCircle, variant: 'destructive' as const, color: 'text-red-400/90 dark:text-red-500' },
   na: { label: 'Not Applicable', icon: AlertTriangle, variant: 'secondary' as const, color: 'text-sand-500 dark:text-sand-400' },
 }
 
@@ -41,7 +41,7 @@ export default async function HealthPage() {
         </p>
       </div>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <RefreshCw className="size-4" />
@@ -66,7 +66,7 @@ export default async function HealthPage() {
           const config = STATUS_CONFIG[check.status]
           const Icon = config.icon
           return (
-            <Card key={check.name} className="border-border/60 shadow-sm transition-colors hover:bg-sand-100/50 dark:hover:bg-sand-800/30">
+            <Card key={check.name} className="transition-colors hover:border-border/80">
               <CardContent className="pt-4 pb-4">
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3 min-w-0">

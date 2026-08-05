@@ -175,7 +175,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card className="border-border/60 shadow-sm">
+        <Card>
           <CardHeader>
             <CardTitle>Summary</CardTitle>
           </CardHeader>
@@ -212,7 +212,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           </CardContent>
         </Card>
 
-        <Card className="border-border/60 shadow-sm">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               Priority score
@@ -241,7 +241,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           </CardContent>
         </Card>
 
-        <Card className="border-border/60 shadow-sm">
+        <Card>
           <CardHeader>
             <CardTitle>Knowledge base coverage</CardTitle>
             <CardDescription>
@@ -271,7 +271,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           </CardContent>
         </Card>
 
-        <Card className="border-border/60 shadow-sm">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="text-bush-600 dark:text-bush-400 size-4" />
@@ -292,7 +292,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card className="border-border/60 shadow-sm">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <MessageSquare className="text-sand-500 dark:text-sand-400 size-4" />
@@ -316,7 +316,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           </CardContent>
         </Card>
 
-        <Card className="border-border/60 shadow-sm">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Lightbulb className="text-sand-500 dark:text-sand-400 size-4" />
@@ -330,7 +330,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
         </Card>
       </div>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <BookOpen className="text-sand-500 dark:text-sand-400 size-4" />

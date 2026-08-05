@@ -48,7 +48,7 @@ export function SkeletonCardGrid({ count = 4 }: { count?: number }) {
       aria-label="Loading overview"
     >
       {Array.from({ length: count }).map((_, index) => (
-        <Skeleton key={index} className="h-44 rounded-xl" />
+        <Skeleton key={index} className="h-44 rounded-lg" />
       ))}
     </div>
   )

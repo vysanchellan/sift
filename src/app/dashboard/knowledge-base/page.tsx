@@ -35,7 +35,7 @@ export default async function KnowledgeBasePage() {
         </p>
       </div>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Upload a document</CardTitle>
           <CardDescription>
@@ -47,7 +47,7 @@ export default async function KnowledgeBasePage() {
         </CardContent>
       </Card>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Documents</CardTitle>
           <CardDescription>Extracted, chunked, and embedded files.</CardDescription>
@@ -75,7 +75,7 @@ export default async function KnowledgeBasePage() {
         </CardContent>
       </Card>
 
-      <Card className="border-border/60 shadow-sm">
+      <Card>
         <CardHeader>
           <CardTitle>Discussion coverage</CardTitle>
           <CardDescription>Semantic comparison against your knowledge base.</CardDescription>

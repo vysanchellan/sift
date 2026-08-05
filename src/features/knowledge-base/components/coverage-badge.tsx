@@ -5,7 +5,7 @@ import { COVERAGE_ANSWERED, COVERAGE_PARTIALLY_COVERED, COVERAGE_GAP } from '../
 const STATUS_STYLES: Record<string, string> = {
   [COVERAGE_ANSWERED]: 'bg-bush-600/15 text-bush-700 border-bush-600/30 dark:bg-bush-400/15 dark:text-bush-300 dark:border-bush-400/30',
   [COVERAGE_PARTIALLY_COVERED]: 'bg-bay-600/15 text-bay-700 border-bay-600/30 dark:bg-bay-400/15 dark:text-bay-300 dark:border-bay-400/30',
-  [COVERAGE_GAP]: 'bg-red-600/15 text-red-700 border-red-600/30 dark:bg-red-400/15 dark:text-red-300 dark:border-red-400/30',
+  [COVERAGE_GAP]: 'bg-red-800/15 text-red-300/80 border-red-800/30 dark:bg-red-700/15 dark:text-red-400/80 dark:border-red-700/30',
 }
 
 const STATUS_LABELS: Record<string, string> = {
