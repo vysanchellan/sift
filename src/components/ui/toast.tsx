@@ -20,37 +20,34 @@ export function useToast() {
         case 'destructive':
           return toast.error(title ?? '', {
             description,
-            action:
-              action
-                ? {
-                    label: action.label,
-                    onClick: action.onClick,
-                  }
-                : undefined,
+            action: action
+              ? {
+                  label: action.label,
+                  onClick: action.onClick,
+                }
+              : undefined,
             duration,
           })
         case 'success':
           return toast.success(title ?? '', {
             description,
-            action:
-              action
-                ? {
-                    label: action.label,
-                    onClick: action.onClick,
-                  }
-                : undefined,
+            action: action
+              ? {
+                  label: action.label,
+                  onClick: action.onClick,
+                }
+              : undefined,
             duration,
           })
         default:
           return toast(title ?? '', {
             description,
-            action:
-              action
-                ? {
-                    label: action.label,
-                    onClick: action.onClick,
-                  }
-                : undefined,
+            action: action
+              ? {
+                  label: action.label,
+                  onClick: action.onClick,
+                }
+              : undefined,
             duration,
           })
       }
@@ -58,7 +55,11 @@ export function useToast() {
     dismiss: toast.dismiss,
     promise: <T,>(
       promise: Promise<T>,
-      msgs: { loading: string; success: string | ((data: T) => string); error: string | ((err: Error) => string) }
+      msgs: {
+        loading: string
+        success: string | ((data: T) => string)
+        error: string | ((err: Error) => string)
+      }
     ) => {
       return toast.promise(promise, msgs)
     },

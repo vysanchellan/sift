@@ -27,7 +27,11 @@ export function CourseForm() {
     try {
       const result = await createCourse({ title, description })
       if (!result.ok) {
-        toast({ title: 'Create failed', description: result.error ?? 'Unknown error', variant: 'destructive' })
+        toast({
+          title: 'Create failed',
+          description: result.error ?? 'Unknown error',
+          variant: 'destructive',
+        })
       } else {
         setTitle('')
         setDescription('')
@@ -86,7 +90,11 @@ export function SectionForm({ courseId }: { courseId: string }) {
         description,
       })
       if (!result.ok) {
-        toast({ title: 'Add section failed', description: result.error ?? 'Unknown error', variant: 'destructive' })
+        toast({
+          title: 'Add section failed',
+          description: result.error ?? 'Unknown error',
+          variant: 'destructive',
+        })
       } else {
         setTitle('')
         setDescription('')
@@ -140,7 +148,11 @@ export function LessonForm({ sectionId }: { sectionId: string }) {
     try {
       const result: CreateLessonResult = await createCourseLesson({ sectionId, title, content })
       if (!result.ok) {
-        toast({ title: 'Add lesson failed', description: result.error ?? 'Unknown error', variant: 'destructive' })
+        toast({
+          title: 'Add lesson failed',
+          description: result.error ?? 'Unknown error',
+          variant: 'destructive',
+        })
       } else {
         setTitle('')
         setContent('')

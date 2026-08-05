@@ -1,16 +1,10 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.15"
+    PostgrestVersion: '14.15'
   }
   graphql_public: {
     Tables: {
@@ -114,32 +108,32 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "course_discussion_matches_course_lesson_id_fkey"
-            columns: ["course_lesson_id"]
+            foreignKeyName: 'course_discussion_matches_course_lesson_id_fkey'
+            columns: ['course_lesson_id']
             isOneToOne: false
-            referencedRelation: "course_lessons"
-            referencedColumns: ["id"]
+            referencedRelation: 'course_lessons'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "course_discussion_matches_course_section_id_fkey"
-            columns: ["course_section_id"]
+            foreignKeyName: 'course_discussion_matches_course_section_id_fkey'
+            columns: ['course_section_id']
             isOneToOne: false
-            referencedRelation: "course_sections"
-            referencedColumns: ["id"]
+            referencedRelation: 'course_sections'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "course_discussion_matches_discussion_id_fkey"
-            columns: ["discussion_id"]
+            foreignKeyName: 'course_discussion_matches_discussion_id_fkey'
+            columns: ['discussion_id']
             isOneToOne: false
-            referencedRelation: "discussions"
-            referencedColumns: ["id"]
+            referencedRelation: 'discussions'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "course_discussion_matches_knowledge_base_item_id_fkey"
-            columns: ["knowledge_base_item_id"]
+            foreignKeyName: 'course_discussion_matches_knowledge_base_item_id_fkey'
+            columns: ['knowledge_base_item_id']
             isOneToOne: false
-            referencedRelation: "knowledge_base_items"
-            referencedColumns: ["id"]
+            referencedRelation: 'knowledge_base_items'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -191,18 +185,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "course_lessons_course_id_fkey"
-            columns: ["course_id"]
+            foreignKeyName: 'course_lessons_course_id_fkey'
+            columns: ['course_id']
             isOneToOne: false
-            referencedRelation: "courses"
-            referencedColumns: ["id"]
+            referencedRelation: 'courses'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "course_lessons_section_id_fkey"
-            columns: ["section_id"]
+            foreignKeyName: 'course_lessons_section_id_fkey'
+            columns: ['section_id']
             isOneToOne: false
-            referencedRelation: "course_sections"
-            referencedColumns: ["id"]
+            referencedRelation: 'course_sections'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -251,11 +245,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "course_sections_course_id_fkey"
-            columns: ["course_id"]
+            foreignKeyName: 'course_sections_course_id_fkey'
+            columns: ['course_id']
             isOneToOne: false
-            referencedRelation: "courses"
-            referencedColumns: ["id"]
+            referencedRelation: 'courses'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -331,25 +325,25 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "discussion_coverage_best_chunk_id_fkey"
-            columns: ["best_chunk_id"]
+            foreignKeyName: 'discussion_coverage_best_chunk_id_fkey'
+            columns: ['best_chunk_id']
             isOneToOne: false
-            referencedRelation: "knowledge_base_embeddings"
-            referencedColumns: ["id"]
+            referencedRelation: 'knowledge_base_embeddings'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "discussion_coverage_discussion_id_fkey"
-            columns: ["discussion_id"]
+            foreignKeyName: 'discussion_coverage_discussion_id_fkey'
+            columns: ['discussion_id']
             isOneToOne: true
-            referencedRelation: "discussions"
-            referencedColumns: ["id"]
+            referencedRelation: 'discussions'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "discussion_coverage_matched_document_id_fkey"
-            columns: ["matched_document_id"]
+            foreignKeyName: 'discussion_coverage_matched_document_id_fkey'
+            columns: ['matched_document_id']
             isOneToOne: false
-            referencedRelation: "knowledge_base_documents"
-            referencedColumns: ["id"]
+            referencedRelation: 'knowledge_base_documents'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -395,11 +389,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "discussion_priority_discussion_id_fkey"
-            columns: ["discussion_id"]
+            foreignKeyName: 'discussion_priority_discussion_id_fkey'
+            columns: ['discussion_id']
             isOneToOne: false
-            referencedRelation: "discussions"
-            referencedColumns: ["id"]
+            referencedRelation: 'discussions'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -460,11 +454,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "discussion_scores_discussion_id_fkey"
-            columns: ["discussion_id"]
+            foreignKeyName: 'discussion_scores_discussion_id_fkey'
+            columns: ['discussion_id']
             isOneToOne: false
-            referencedRelation: "discussions"
-            referencedColumns: ["id"]
+            referencedRelation: 'discussions'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -540,11 +534,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "discussions_source_id_fkey"
-            columns: ["source_id"]
+            foreignKeyName: 'discussions_source_id_fkey'
+            columns: ['source_id']
             isOneToOne: false
-            referencedRelation: "sources"
-            referencedColumns: ["id"]
+            referencedRelation: 'sources'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -638,18 +632,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "knowledge_base_embeddings_document_id_fkey"
-            columns: ["document_id"]
+            foreignKeyName: 'knowledge_base_embeddings_document_id_fkey'
+            columns: ['document_id']
             isOneToOne: false
-            referencedRelation: "knowledge_base_documents"
-            referencedColumns: ["id"]
+            referencedRelation: 'knowledge_base_documents'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "knowledge_base_embeddings_knowledge_base_item_id_fkey"
-            columns: ["knowledge_base_item_id"]
+            foreignKeyName: 'knowledge_base_embeddings_knowledge_base_item_id_fkey'
+            columns: ['knowledge_base_item_id']
             isOneToOne: false
-            referencedRelation: "knowledge_base_items"
-            referencedColumns: ["id"]
+            referencedRelation: 'knowledge_base_items'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -698,11 +692,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "knowledge_base_items_cluster_id_fkey"
-            columns: ["cluster_id"]
+            foreignKeyName: 'knowledge_base_items_cluster_id_fkey'
+            columns: ['cluster_id']
             isOneToOne: false
-            referencedRelation: "clusters"
-            referencedColumns: ["id"]
+            referencedRelation: 'clusters'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -903,33 +897,31 @@ export type Database = {
   }
 }
 
-type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
     | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -938,23 +930,22 @@ export type Tables<
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+    keyof DefaultSchema['Tables'] | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -963,23 +954,22 @@ export type TablesInsert<
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
+    keyof DefaultSchema['Tables'] | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    : never) = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -988,36 +978,34 @@ export type TablesUpdate<
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
-    | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    keyof DefaultSchema['Enums'] | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
+    : never) = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
+    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    keyof DefaultSchema['CompositeTypes'] | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    : never) = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
+    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {

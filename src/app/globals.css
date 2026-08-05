@@ -91,8 +91,9 @@
   --muted: 40 40 40;
   --muted-foreground: 150 150 150;
   --border: 42 42 42;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
   --card: 26 26 26;
   --card-foreground: 245 241 232;
   --popover: 26 26 26;
@@ -240,22 +241,22 @@
     @apply font-serif;
   }
   h1 {
-    @apply text-2xl font-semibold tracking-tight;
+    @apply text-foreground font-serif text-3xl font-normal tracking-tight md:text-4xl;
   }
   h2 {
-    @apply text-lg font-semibold tracking-tight;
+    @apply text-foreground/90 font-serif text-xl font-normal tracking-tight md:text-2xl;
   }
   h3 {
-    @apply text-base font-semibold;
+    @apply text-foreground/80 font-serif text-lg font-normal md:text-xl;
   }
   h4 {
-    @apply text-sm font-medium;
+    @apply text-foreground/70 font-sans text-sm font-medium md:text-base;
   }
   p {
-    @apply text-sm leading-relaxed;
+    @apply text-muted-foreground text-sm leading-relaxed;
   }
   small {
-    @apply text-xs;
+    @apply text-muted-foreground/80 text-xs;
   }
 }
 

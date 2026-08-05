@@ -95,94 +95,117 @@ export default async function CourseMapperPage() {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Courses</CardTitle>
-          <CardDescription>Sections with the discussions they already answer.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {coursesResult.error && <p className="text-destructive text-sm">{coursesResult.error}</p>}
-          {coursesResult.courses.length === 0 ? (
-            <p className="text-sand-500 dark:text-sand-400">
+      <div>
+        <h2 className="text-foreground mb-6 font-serif text-2xl font-normal">Courses</h2>
+        {coursesResult.error && (
+          <p className="text-destructive mb-4 text-sm">{coursesResult.error}</p>
+        )}
+        {coursesResult.courses.length === 0 ? (
+          <Card className="p-8 text-center">
+            <p className="text-muted-foreground">
               No courses yet. Create one or import an outline.
             </p>
-          ) : (
-            <ul className="space-y-6">
-              {coursesResult.courses.map((course) => (
-                <li key={course.id} className="space-y-3">
-                  <div>
-                    <h3 className="font-semibold">{course.title}</h3>
-                    {course.description && (
-                      <p className="text-sand-500 dark:text-sand-400 text-sm">{course.description}</p>
-                    )}
+          </Card>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2">
+            {coursesResult.courses.map((course) => (
+              <Card
+                key={course.id}
+                className="border-border/80 hover:border-primary/40 group flex h-full flex-col overflow-hidden rounded-xl border bg-transparent transition-all"
+              >
+                {/* Visual Top Header */}
+                <div className="bg-muted border-border/80 relative h-28 w-full overflow-hidden border-b">
+                  <div className="from-primary/10 to-primary/30 absolute inset-0 bg-gradient-to-tr mix-blend-overlay" />
+                  <div className="from-primary/20 absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] via-transparent to-transparent opacity-80" />
+                  <div className="absolute bottom-3 left-4">
+                    <span className="bg-primary rounded px-2.5 py-0.5 text-[9px] font-semibold tracking-wider text-[#efefef] uppercase">
+                      Outline
+                    </span>
                   </div>
-                  <ul className="space-y-4 pl-4">
-                    {course.sections.length === 0 && (
-                      <li className="text-sand-500 dark:text-sand-400 text-sm">
-                        No sections yet. Add one below.
-                      </li>
-                    )}
-                    {course.sections.map((section) => (
-                      <li key={section.id} className="border-l pl-3">
-                        <div>
-                          <h4 className="font-medium">{section.title}</h4>
-                          {section.description && (
-                            <p className="text-sand-500 dark:text-sand-400 text-sm">{section.description}</p>
-                          )}
-                        </div>
+                </div>
 
-                        <ul className="mt-1 space-y-0.5">
-                          {section.lessons.map((lesson) => (
-                            <li key={lesson.id} className="text-sand-600 dark:text-sand-400 text-sm">
-                              • {lesson.title}
-                              {lesson.content && <span> — {lesson.content}</span>}
-                            </li>
-                          ))}
-                        </ul>
+                {/* Content Area */}
+                <div className="flex flex-1 flex-col justify-between space-y-4 p-6">
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-foreground group-hover:text-primary font-serif text-xl font-normal transition-colors">
+                        {course.title}
+                      </h3>
+                      {course.description && (
+                        <p className="text-muted-foreground mt-1 text-xs">{course.description}</p>
+                      )}
+                    </div>
 
-                        {section.matches.length > 0 && (
-                          <div className="mt-2">
-                            <p className="text-sand-500 dark:text-sand-400 text-xs font-medium uppercase">
-                              Answers {section.matches.length} discussion(s)
-                            </p>
-                            <ul className="mt-1 space-y-1">
-                              {section.matches.map((match) => (
-                                <li
-                                  key={match.id}
-                                  className="bg-sand-100/50 dark:bg-sand-800/30 flex items-center justify-between gap-3 rounded-md border px-3 py-2 text-sm transition-colors hover:bg-sand-100 dark:hover:bg-sand-800/50"
-                                >
-                                  <div className="min-w-0">
-                                    <p className="truncate font-medium">
-                                      {match.discussion?.title ?? 'Unknown discussion'}
-                                    </p>
-                                    {match.reason && (
-                                      <p className="text-sand-500 dark:text-sand-400 truncate text-xs">
-                                        {match.reason}
-                                      </p>
-                                    )}
-                                  </div>
-                                  <Similarity score={match.score} />
-                                </li>
-                              ))}
-                            </ul>
+                    <ul className="space-y-4 pl-1">
+                      {course.sections.length === 0 && (
+                        <li className="text-muted-foreground text-xs">
+                          No sections yet. Add one below.
+                        </li>
+                      )}
+                      {course.sections.map((section) => (
+                        <li key={section.id} className="border-border/80 space-y-2 border-l pl-3">
+                          <div>
+                            <h4 className="text-foreground/90 text-sm font-semibold">
+                              {section.title}
+                            </h4>
+                            {section.description && (
+                              <p className="text-muted-foreground text-xs">{section.description}</p>
+                            )}
                           </div>
-                        )}
 
-                        <div className="mt-2">
-                          <SectionForm courseId={course.id} />
-                        </div>
-                        <div className="mt-2 pl-4">
-                          <LessonForm sectionId={section.id} />
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          )}
-        </CardContent>
-      </Card>
+                          <ul className="mt-1 space-y-0.5 pl-2">
+                            {section.lessons.map((lesson) => (
+                              <li key={lesson.id} className="text-muted-foreground/80 text-xs">
+                                • {lesson.title}
+                                {lesson.content && <span> — {lesson.content}</span>}
+                              </li>
+                            ))}
+                          </ul>
+
+                          {section.matches.length > 0 && (
+                            <div className="mt-2">
+                              <p className="text-muted-foreground/70 text-[10px] font-semibold tracking-wider uppercase">
+                                Answers {section.matches.length} discussion(s)
+                              </p>
+                              <ul className="mt-1 space-y-1">
+                                {section.matches.map((match) => (
+                                  <li
+                                    key={match.id}
+                                    className="border-border/60 hover:border-primary/45 flex items-center justify-between gap-3 rounded-md border bg-transparent px-3 py-2 text-xs transition-colors"
+                                  >
+                                    <div className="min-w-0">
+                                      <p className="text-foreground/90 truncate font-medium">
+                                        {match.discussion?.title ?? 'Unknown discussion'}
+                                      </p>
+                                      {match.reason && (
+                                        <p className="text-muted-foreground/70 truncate text-[10px]">
+                                          {match.reason}
+                                        </p>
+                                      )}
+                                    </div>
+                                    <Similarity score={match.score} />
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          <div className="mt-2 pt-1">
+                            <SectionForm courseId={course.id} />
+                          </div>
+                          <div className="mt-1 pl-3">
+                            <LessonForm sectionId={section.id} />
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
 
       <Card>
         <CardHeader>

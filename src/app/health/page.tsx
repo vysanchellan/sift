@@ -17,10 +17,30 @@ interface HealthResponse {
 }
 
 const STATUS_CONFIG = {
-  ok: { label: 'Operational', icon: CheckCircle, variant: 'default' as const, color: 'text-bush-700 dark:text-bush-400' },
-  degraded: { label: 'Degraded', icon: AlertTriangle, variant: 'warning' as const, color: 'text-bay-700 dark:text-bay-400' },
-  down: { label: 'Down', icon: AlertCircle, variant: 'destructive' as const, color: 'text-red-400/90 dark:text-red-500' },
-  na: { label: 'Not Applicable', icon: AlertTriangle, variant: 'secondary' as const, color: 'text-sand-500 dark:text-sand-400' },
+  ok: {
+    label: 'Operational',
+    icon: CheckCircle,
+    variant: 'default' as const,
+    color: 'text-bush-700 dark:text-bush-400',
+  },
+  degraded: {
+    label: 'Degraded',
+    icon: AlertTriangle,
+    variant: 'warning' as const,
+    color: 'text-bay-700 dark:text-bay-400',
+  },
+  down: {
+    label: 'Down',
+    icon: AlertCircle,
+    variant: 'destructive' as const,
+    color: 'text-red-400/90 dark:text-red-500',
+  },
+  na: {
+    label: 'Not Applicable',
+    icon: AlertTriangle,
+    variant: 'secondary' as const,
+    color: 'text-sand-500 dark:text-sand-400',
+  },
 }
 
 async function fetchHealth(): Promise<HealthResponse> {
@@ -53,8 +73,14 @@ export default async function HealthPage() {
         </CardHeader>
         <CardContent>
           <Badge
-            variant={health.status === 'healthy' ? 'default' : health.status === 'degraded' ? 'warning' : 'destructive'}
-            className="text-lg px-3 py-1"
+            variant={
+              health.status === 'healthy'
+                ? 'default'
+                : health.status === 'degraded'
+                  ? 'warning'
+                  : 'destructive'
+            }
+            className="px-3 py-1 text-lg"
           >
             {health.status.toUpperCase()}
           </Badge>
@@ -66,19 +92,22 @@ export default async function HealthPage() {
           const config = STATUS_CONFIG[check.status]
           const Icon = config.icon
           return (
-            <Card key={check.name} className="transition-colors hover:border-border/80">
+            <Card key={check.name} className="hover:border-border/80 transition-colors">
               <CardContent className="pt-4 pb-4">
                 <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3 min-w-0">
+                  <div className="flex min-w-0 items-center gap-3">
                     <Icon className={`${config.color} size-5 flex-shrink-0`} aria-hidden="true" />
                     <div className="min-w-0">
-                      <p className="font-medium truncate">{check.name}</p>
-                      <p className="text-sand-500 dark:text-sand-400 text-sm truncate">
-                        {check.details && Object.entries(check.details).map(([k, v]) => `${k}: ${v}`).join(' · ')}
+                      <p className="truncate font-medium">{check.name}</p>
+                      <p className="text-sand-500 dark:text-sand-400 truncate text-sm">
+                        {check.details &&
+                          Object.entries(check.details)
+                            .map(([k, v]) => `${k}: ${v}`)
+                            .join(' · ')}
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 flex-shrink-0">
+                  <div className="flex flex-shrink-0 items-center gap-3">
                     <Badge variant={config.variant}>{config.label}</Badge>
                     {check.latencyMs != null && (
                       <span className="text-sand-500 dark:text-sand-400 text-sm tabular-nums">
@@ -88,7 +117,7 @@ export default async function HealthPage() {
                   </div>
                 </div>
                 {check.error && (
-                  <div className="mt-2 p-2 rounded bg-destructive/10 text-destructive text-xs font-mono">
+                  <div className="bg-destructive/10 text-destructive mt-2 rounded p-2 font-mono text-xs">
                     {check.error}
                   </div>
                 )}
@@ -98,13 +127,13 @@ export default async function HealthPage() {
         })}
       </div>
 
-      <div className="flex items-center justify-between border-t pt-4 text-sm text-sand-500 dark:text-sand-400">
+      <div className="text-sand-500 dark:text-sand-400 flex items-center justify-between border-t pt-4 text-sm">
         <span>Sift v0.1.0</span>
         <a
           href="/api/health"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline hover:text-foreground transition-colors"
+          className="hover:text-foreground underline transition-colors"
         >
           Raw JSON
         </a>

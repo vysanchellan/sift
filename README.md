@@ -73,11 +73,11 @@ See `.env.example`. All variables are provider credentials — the app does not 
 
 ## Scripts
 
-| Command            | Description                    |
-| ------------------ | ------------------------------ |
-| `npm run dev`      | Start dev server (Turbopack)   |
-| `npm run build`    | Production build               |
-| `npm run start`    | Serve production build         |
-| `npm run lint`     | ESLint                         |
-| `npm run format`   | Prettier write                 |
-| `npm run format:check` | Prettier check             |
+| Command                | Description                  |
+| ---------------------- | ---------------------------- |
+| `npm run dev`          | Start dev server (Turbopack) |
+| `npm run build`        | Production build             |
+| `npm run start`        | Serve production build       |
+| `npm run lint`         | ESLint                       |
+| `npm run format`       | Prettier write               |
+| `npm run format:check` | Prettier check               |

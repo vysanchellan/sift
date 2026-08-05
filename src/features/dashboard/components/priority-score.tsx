@@ -11,9 +11,21 @@ export function scoreTone(score: number | null): ScoreTone {
 }
 
 const TONE_COLORS: Record<ScoreTone, { bg: string; text: string; bar: string }> = {
-  success: { bg: 'bg-bush-100 dark:bg-bush-900', text: 'text-bush-800 dark:text-bush-200', bar: 'bg-bush-600 dark:bg-bush-400' },
-  warning: { bg: 'bg-bay-100 dark:bg-bay-900', text: 'text-bay-800 dark:text-bay-200', bar: 'bg-bay-600 dark:bg-bay-400' },
-  muted: { bg: 'bg-sand-200 dark:bg-sand-800', text: 'text-sand-600 dark:text-sand-400', bar: 'bg-sand-400 dark:bg-sand-600' },
+  success: {
+    bg: 'bg-bush-100 dark:bg-bush-900',
+    text: 'text-bush-800 dark:text-bush-200',
+    bar: 'bg-bush-600 dark:bg-bush-400',
+  },
+  warning: {
+    bg: 'bg-bay-100 dark:bg-bay-900',
+    text: 'text-bay-800 dark:text-bay-200',
+    bar: 'bg-bay-600 dark:bg-bay-400',
+  },
+  muted: {
+    bg: 'bg-sand-200 dark:bg-sand-800',
+    text: 'text-sand-600 dark:text-sand-400',
+    bar: 'bg-sand-400 dark:bg-sand-600',
+  },
 }
 
 export function ScoreBadge({ score, className }: { score: number | null; className?: string }) {
@@ -32,7 +44,7 @@ export function ScoreBadge({ score, className }: { score: number | null; classNa
         'inline-flex items-center justify-center rounded-full px-2.5 py-0.5 text-xs font-semibold tabular-nums',
         colors.bg,
         colors.text,
-        className,
+        className
       )}
     >
       {score}
@@ -69,9 +81,7 @@ export function ScoreBreakdown({
           <li key={key}>
             <div className="flex items-center justify-between gap-2 text-xs">
               <span className="text-sand-600 dark:text-sand-400">{label}</span>
-              <span className={cn('tabular-nums font-medium', colors.text)}>
-                {pct}
-              </span>
+              <span className={cn('font-medium tabular-nums', colors.text)}>{pct}</span>
             </div>
             <div
               className="bg-sand-200 dark:bg-sand-800 mt-1.5 h-2 overflow-hidden rounded-full"

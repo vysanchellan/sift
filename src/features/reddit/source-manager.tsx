@@ -10,7 +10,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { useToast } from '@/components/ui/toast'
 
-import { createRedditSource, deleteSource, listSources, type SourceListItem } from '@/features/reddit/source-actions'
+import {
+  createRedditSource,
+  deleteSource,
+  listSources,
+  type SourceListItem,
+} from '@/features/reddit/source-actions'
 
 export function SourceManager() {
   const [sources, setSources] = useState<SourceListItem[]>([])
@@ -27,7 +32,11 @@ export function SourceManager() {
       if (result.ok) {
         setSources(result.sources ?? [])
       } else {
-        toast({ title: 'Failed to load sources', description: result.error, variant: 'destructive' })
+        toast({
+          title: 'Failed to load sources',
+          description: result.error,
+          variant: 'destructive',
+        })
       }
     } finally {
       setLoading(false)
@@ -79,10 +88,13 @@ export function SourceManager() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <form onSubmit={handleCreate} className="space-y-4 p-4 bg-sand-100/50 dark:bg-sand-800/30 rounded-lg">
+        <form
+          onSubmit={handleCreate}
+          className="border-border/80 space-y-6 rounded-lg border bg-transparent p-6"
+        >
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="source-name" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+              <Label htmlFor="source-name" className="text-muted-foreground text-xs font-medium">
                 Source name
               </Label>
               <Input
@@ -95,7 +107,10 @@ export function SourceManager() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="source-subreddits" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+              <Label
+                htmlFor="source-subreddits"
+                className="text-muted-foreground text-xs font-medium"
+              >
                 Subreddits (comma-separated)
               </Label>
               <Input
@@ -108,8 +123,9 @@ export function SourceManager() {
               />
             </div>
           </div>
-          <p className="text-xs text-sand-500 dark:text-sand-400">
-            Example: <code className="px-1 bg-sand-200 dark:bg-sand-800 rounded">programming, typescript, rust</code> &mdash;
+          <p className="text-muted-foreground/80 text-xs">
+            Example:{' '}
+            <code className="bg-border/40 rounded px-1">programming, typescript, rust</code> &mdash;
             names are normalized (lowercase, no &ldquo;r/&rdquo; prefix).
           </p>
           <Button type="submit" disabled={creating} className="w-full sm:w-auto">
@@ -120,37 +136,45 @@ export function SourceManager() {
         {loading ? (
           <div className="space-y-3" aria-busy="true">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-16 animate-pulse bg-sand-200 dark:bg-sand-800 rounded-lg" />
+              <div key={i} className="border-border/60 h-16 animate-pulse rounded-lg border" />
             ))}
           </div>
         ) : sources.length === 0 ? (
-          <div className="text-center py-8">
-            <p className="text-sand-500 dark:text-sand-400">No sources configured yet.</p>
-            <p className="text-xs text-sand-500 dark:text-sand-400 mt-1">Add a source above to start importing discussions.</p>
+          <div className="py-8 text-center">
+            <p className="text-muted-foreground">No sources configured yet.</p>
+            <p className="text-muted-foreground mt-1 text-xs">
+              Add a source above to start importing discussions.
+            </p>
           </div>
         ) : (
           <ul className="space-y-2">
             {sources.map((source) => (
               <li
                 key={source.id}
-                className="flex items-center justify-between gap-4 p-3 bg-sand-100/50 dark:bg-sand-800/30 rounded-lg hover:bg-sand-100 dark:hover:bg-sand-800/50 transition-colors"
+                className="border-border/60 hover:border-primary/60 flex items-center justify-between gap-4 rounded-lg border bg-transparent p-4 transition-colors"
               >
-                <div className="flex items-center gap-3 min-w-0 flex-1">
+                <div className="flex min-w-0 flex-1 items-center gap-3">
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="capitalize">{source.kind}</Badge>
-                    <span className="font-medium truncate">{source.name}</span>
+                    <Badge variant="outline" className="capitalize">
+                      {source.kind}
+                    </Badge>
+                    <span className="truncate font-medium">{source.name}</span>
                   </div>
-                  <div className="text-sand-500 dark:text-sand-400 text-sm flex flex-wrap gap-2">
+                  <div className="text-sand-500 dark:text-sand-400 flex flex-wrap gap-2 text-sm">
                     <span>
                       Subreddits:{' '}
-                      {(source.config as Record<string, string[]>)?.subreddits?.map((s) => `r/${s}`).join(', ') ?? '—'}
+                      {(source.config as Record<string, string[]>)?.subreddits
+                        ?.map((s) => `r/${s}`)
+                        .join(', ') ?? '—'}
                     </span>
                     <span className="hidden sm:inline">·</span>
                     <Badge variant={source.isEnabled ? 'default' : 'secondary'}>
                       {source.status}
                     </Badge>
                     {source.lastSyncedAt && (
-                      <span className="hidden sm:inline">Last sync: {new Date(source.lastSyncedAt).toLocaleDateString()}</span>
+                      <span className="hidden sm:inline">
+                        Last sync: {new Date(source.lastSyncedAt).toLocaleDateString()}
+                      </span>
                     )}
                   </div>
                 </div>
@@ -162,7 +186,11 @@ export function SourceManager() {
                   className="text-destructive hover:bg-destructive/10"
                   aria-label={`Delete ${source.name}`}
                 >
-                  {deleting === source.id ? <Loader2 className="size-4 animate-spin" /> : <Trash2 className="size-4" />}
+                  {deleting === source.id ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="size-4" />
+                  )}
                 </Button>
               </li>
             ))}

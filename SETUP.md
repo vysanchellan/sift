@@ -8,18 +8,18 @@ The Supabase CLI is installed as a dev dependency — run it with `npx supabase 
 
 ## Schema overview
 
-| Table | Purpose |
-| --- | --- |
-| `profiles` | 1:1 extension of `auth.users`; created automatically on signup |
-| `sources` | Content sources (provider abstraction: `kind` = adapter, e.g. `reddit`) |
-| `discussions` | Normalized discussion posts pulled from a source |
-| `discussion_scores` | Per-discussion scores from the scoring engine (0..1) |
-| `clusters` | Groups of related discussions (topic clustering) |
-| `knowledge_base_items` | Distilled knowledge entries |
-| `knowledge_base_embeddings` | pgvector embeddings for vector search (`vector(768)`) |
-| `courses` | User-created courses / learning paths |
-| `course_sections` | Ordered sections within a course |
-| `course_discussion_matches` | Links course sections to discussions / knowledge items |
+| Table                       | Purpose                                                                 |
+| --------------------------- | ----------------------------------------------------------------------- |
+| `profiles`                  | 1:1 extension of `auth.users`; created automatically on signup          |
+| `sources`                   | Content sources (provider abstraction: `kind` = adapter, e.g. `reddit`) |
+| `discussions`               | Normalized discussion posts pulled from a source                        |
+| `discussion_scores`         | Per-discussion scores from the scoring engine (0..1)                    |
+| `clusters`                  | Groups of related discussions (topic clustering)                        |
+| `knowledge_base_items`      | Distilled knowledge entries                                             |
+| `knowledge_base_embeddings` | pgvector embeddings for vector search (`vector(768)`)                   |
+| `courses`                   | User-created courses / learning paths                                   |
+| `course_sections`           | Ordered sections within a course                                        |
+| `course_discussion_matches` | Links course sections to discussions / knowledge items                  |
 
 Every table is scoped to its owner via `user_id` and protected by **row-level
 security**: users can only see and modify their own rows (see the final migration,
@@ -36,21 +36,25 @@ privileges to the `authenticated` and `service_role` roles explicitly.
 ## Option A — Local development (recommended)
 
 1. Copy the environment template and fill in values later from `supabase status`:
+
    ```bash
    cp .env.example .env.local
    ```
 
 2. Start the local Supabase stack:
+
    ```bash
    npx supabase start
    ```
 
 3. Apply all migrations (also resets the DB):
+
    ```bash
    npx supabase db reset
    ```
 
 4. Grab the local keys and put them in `.env.local`:
+
    ```bash
    npx supabase status
    ```
@@ -69,10 +73,12 @@ privileges to the `authenticated` and `service_role` roles explicitly.
    dashboard's "SQL Editor" — the migrations in this repo are the source of truth).
 
 2. Link the project:
+
    ```bash
    npx supabase login
    npx supabase link --project-ref <your-project-ref>
    ```
+
    > `supabase login` opens a browser popup and therefore **must be run from an
    > interactive terminal** — it cannot complete from a non-TTY/automated shell.
    > If you don't have a terminal, use a personal access token instead:
@@ -83,6 +89,7 @@ privileges to the `authenticated` and `service_role` roles explicitly.
    `https://<your-project-ref>.supabase.co`.
 
 3. Push the migrations:
+
    ```bash
    npx supabase db push
    ```
@@ -109,6 +116,7 @@ npx supabase gen types typescript --local > src/types/database.types.ts
 ```
 
 The generated file drives the typed clients in `src/lib/supabase/`:
+
 - `client.ts` — browser client (`createBrowserClient`, anon key, RLS applies)
 - `server.ts` — server client for RSC/Server Actions (`createServerClient`, user's cookies)
 - `admin.ts` — service-role client, **server-only** (`server-only` import), bypasses RLS

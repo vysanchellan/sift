@@ -40,7 +40,11 @@ export function CourseImportForm() {
     try {
       const result = await importCourseOutline({ format, content, title })
       if (!result.ok) {
-        toast({ title: 'Import failed', description: result.error ?? 'Unknown error', variant: 'destructive' })
+        toast({
+          title: 'Import failed',
+          description: result.error ?? 'Unknown error',
+          variant: 'destructive',
+        })
       } else {
         toast({
           title: 'Course imported',

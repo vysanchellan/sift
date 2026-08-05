@@ -24,7 +24,12 @@ async function checkSupabaseConnection(): Promise<HealthCheckResult> {
     if (error) throw error
     return { name: 'Supabase (DB)', status: 'ok', latencyMs: Date.now() - start }
   } catch (error) {
-    return { name: 'Supabase (DB)', status: 'down', latencyMs: Date.now() - start, error: String(error) }
+    return {
+      name: 'Supabase (DB)',
+      status: 'down',
+      latencyMs: Date.now() - start,
+      error: String(error),
+    }
   }
 }
 
@@ -36,7 +41,12 @@ async function checkSupabaseAuth(): Promise<HealthCheckResult> {
     // getUser can return error if not authenticated, that's fine - we just check connectivity
     return { name: 'Supabase (Auth)', status: 'ok', latencyMs: Date.now() - start }
   } catch (error) {
-    return { name: 'Supabase (Auth)', status: 'degraded', latencyMs: Date.now() - start, error: String(error) }
+    return {
+      name: 'Supabase (Auth)',
+      status: 'degraded',
+      latencyMs: Date.now() - start,
+      error: String(error),
+    }
   }
 }
 
@@ -56,7 +66,12 @@ async function checkRedditRSS(): Promise<HealthCheckResult> {
     await provider.fetchDiscussions(testSource as Source, { signal: AbortSignal.timeout(10000) })
     return { name: 'Reddit RSS', status: 'ok', latencyMs: Date.now() - start }
   } catch (error) {
-    return { name: 'Reddit RSS', status: 'down', latencyMs: Date.now() - start, error: String(error) }
+    return {
+      name: 'Reddit RSS',
+      status: 'down',
+      latencyMs: Date.now() - start,
+      error: String(error),
+    }
   }
 }
 
@@ -71,7 +86,12 @@ async function checkGeminiAPI(): Promise<HealthCheckResult> {
     await provider.classify('Test', ['test'], { signal: AbortSignal.timeout(10000) })
     return { name: 'Gemini API', status: 'ok', latencyMs: Date.now() - start }
   } catch (error) {
-    return { name: 'Gemini API', status: 'down', latencyMs: Date.now() - start, error: String(error) }
+    return {
+      name: 'Gemini API',
+      status: 'down',
+      latencyMs: Date.now() - start,
+      error: String(error),
+    }
   }
 }
 
@@ -79,7 +99,12 @@ async function checkLocalEmbeddings(): Promise<HealthCheckResult> {
   // On Vercel, local embeddings are not supported (missing native ONNX Runtime binaries)
   // The KB embedding provider defaults to 'gemini' on Vercel, so this check is N/A
   if (process.env.VERCEL) {
-    return { name: 'Local Embeddings', status: 'ok', latencyMs: 0, details: { note: 'Using Gemini embeddings on Vercel' } }
+    return {
+      name: 'Local Embeddings',
+      status: 'ok',
+      latencyMs: 0,
+      details: { note: 'Using Gemini embeddings on Vercel' },
+    }
   }
 
   const start = Date.now()
@@ -88,7 +113,12 @@ async function checkLocalEmbeddings(): Promise<HealthCheckResult> {
     await provider.embed('Test embedding', { signal: AbortSignal.timeout(30000) })
     return { name: 'Local Embeddings', status: 'ok', latencyMs: Date.now() - start }
   } catch (error) {
-    return { name: 'Local Embeddings', status: 'down', latencyMs: Date.now() - start, error: String(error) }
+    return {
+      name: 'Local Embeddings',
+      status: 'down',
+      latencyMs: Date.now() - start,
+      error: String(error),
+    }
   }
 }
 
@@ -97,9 +127,19 @@ async function checkKBEmbeddingProvider(): Promise<HealthCheckResult> {
   try {
     const provider = getKnowledgeBaseEmbeddingProvider()
     await provider.embed('Test KB embedding', { signal: AbortSignal.timeout(30000) })
-    return { name: 'KB Embedding Provider', status: 'ok', latencyMs: Date.now() - start, details: { provider: provider.name } }
+    return {
+      name: 'KB Embedding Provider',
+      status: 'ok',
+      latencyMs: Date.now() - start,
+      details: { provider: provider.name },
+    }
   } catch (error) {
-    return { name: 'KB Embedding Provider', status: 'down', latencyMs: Date.now() - start, error: String(error) }
+    return {
+      name: 'KB Embedding Provider',
+      status: 'down',
+      latencyMs: Date.now() - start,
+      error: String(error),
+    }
   }
 }
 
@@ -118,7 +158,9 @@ export async function GET() {
     ])
 
     healthChecks = results.map((r) =>
-      r.status === 'fulfilled' ? r.value : { name: 'Unknown', status: 'down', error: String(r.reason) }
+      r.status === 'fulfilled'
+        ? r.value
+        : { name: 'Unknown', status: 'down', error: String(r.reason) }
     )
 
     overallStatus = healthChecks.every((c) => c.status === 'ok')
@@ -128,9 +170,7 @@ export async function GET() {
         : 'unhealthy'
   } catch (error) {
     // If even the Promise.allSettled fails (extremely unlikely), return a minimal response
-    healthChecks = [
-      { name: 'Health Check System', status: 'down', error: String(error) },
-    ]
+    healthChecks = [{ name: 'Health Check System', status: 'down', error: String(error) }]
     overallStatus = 'unhealthy'
   }
 

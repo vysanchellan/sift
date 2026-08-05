@@ -73,7 +73,10 @@ export function FilterBar({
     <div className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-1.5">
-          <Label htmlFor="filter-source" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+          <Label
+            htmlFor="filter-source"
+            className="text-sand-600 dark:text-sand-400 text-xs font-medium"
+          >
             Source
           </Label>
           <Select
@@ -100,7 +103,10 @@ export function FilterBar({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="filter-category" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+          <Label
+            htmlFor="filter-category"
+            className="text-sand-600 dark:text-sand-400 text-xs font-medium"
+          >
             Category
           </Label>
           <Select
@@ -128,7 +134,10 @@ export function FilterBar({
 
         <div className="grid grid-cols-2 gap-2">
           <div className="space-y-1.5">
-            <Label htmlFor="filter-min-score" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+            <Label
+              htmlFor="filter-min-score"
+              className="text-sand-600 dark:text-sand-400 text-xs font-medium"
+            >
               Min priority
             </Label>
             <Input
@@ -147,7 +156,10 @@ export function FilterBar({
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="filter-max-score" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+            <Label
+              htmlFor="filter-max-score"
+              className="text-sand-600 dark:text-sand-400 text-xs font-medium"
+            >
               Max priority
             </Label>
             <Input
@@ -169,7 +181,10 @@ export function FilterBar({
 
         <div className="grid grid-cols-2 gap-2">
           <div className="space-y-1.5">
-            <Label htmlFor="filter-from" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+            <Label
+              htmlFor="filter-from"
+              className="text-sand-600 dark:text-sand-400 text-xs font-medium"
+            >
               From
             </Label>
             <Input
@@ -180,7 +195,10 @@ export function FilterBar({
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="filter-to" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+            <Label
+              htmlFor="filter-to"
+              className="text-sand-600 dark:text-sand-400 text-xs font-medium"
+            >
               To
             </Label>
             <Input
@@ -193,7 +211,10 @@ export function FilterBar({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="filter-kb-gap" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+          <Label
+            htmlFor="filter-kb-gap"
+            className="text-sand-600 dark:text-sand-400 text-xs font-medium"
+          >
             KB coverage
           </Label>
           <Select
@@ -217,7 +238,10 @@ export function FilterBar({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="filter-sort" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+          <Label
+            htmlFor="filter-sort"
+            className="text-sand-600 dark:text-sand-400 text-xs font-medium"
+          >
             Sort by
           </Label>
           <div className="flex items-center gap-2">
@@ -262,7 +286,7 @@ export function FilterBar({
                 type="button"
                 onClick={() => onChange({ topic: null })}
                 aria-label={`Remove topic filter ${filters.topic}`}
-                className="hover:text-foreground text-sand-500 dark:text-sand-400 outline-none transition-colors"
+                className="hover:text-foreground text-sand-500 dark:text-sand-400 transition-colors outline-none"
               >
                 <X className="size-3" />
               </button>

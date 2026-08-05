@@ -22,7 +22,11 @@ export function RefreshCoverageButton() {
           variant: 'success',
         })
       } else {
-        toast({ title: 'Refresh failed', description: result.error ?? 'Unknown error', variant: 'destructive' })
+        toast({
+          title: 'Refresh failed',
+          description: result.error ?? 'Unknown error',
+          variant: 'destructive',
+        })
       }
     } finally {
       setPending(false)

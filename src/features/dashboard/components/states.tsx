@@ -17,12 +17,12 @@ export function DashboardError({ message }: { message: string }) {
 
 export function DashboardEmpty({ title, description }: { title: string; description: string }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
-      <div className="bg-sand-200 dark:bg-sand-800 flex size-12 items-center justify-center rounded-full">
-        <SearchX className="text-sand-500 dark:text-sand-400 size-5" />
+    <div className="border-border/80 mx-auto flex max-w-2xl flex-col items-center justify-center gap-4 rounded-xl border border-dashed px-6 py-16 text-center">
+      <div className="border-primary/20 bg-primary/5 flex size-14 items-center justify-center rounded-full border">
+        <SearchX className="text-primary size-6" />
       </div>
-      <p className="font-medium text-foreground">{title}</p>
-      <p className="text-sand-500 dark:text-sand-400 max-w-sm text-sm leading-relaxed">{description}</p>
+      <h3 className="text-foreground font-serif text-xl font-normal">{title}</h3>
+      <p className="text-muted-foreground max-w-md text-sm leading-relaxed">{description}</p>
     </div>
   )
 }

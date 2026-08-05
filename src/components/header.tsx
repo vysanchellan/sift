@@ -19,16 +19,16 @@ export function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="border-border bg-background/80 supports-[backdrop-filter]:bg-background/60 fixed top-0 z-50 w-full border-b backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-5">
         <Link
           href="/dashboard"
-          className="font-display text-lg font-semibold tracking-tight text-foreground"
+          className="text-foreground font-serif text-2xl font-normal tracking-wide"
         >
           Sift
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+        <nav className="hidden items-center gap-4 md:flex" aria-label="Main navigation">
           {LINKS.map((link) => (
             <NavLink key={link.href} href={link.href} active={pathname === link.href}>
               {link.label}
@@ -38,7 +38,7 @@ export function Header() {
 
         <button
           type="button"
-          className="md:hidden inline-flex items-center justify-center rounded-md border border-border p-2 text-muted-foreground hover:text-foreground transition-colors"
+          className="border-border text-muted-foreground hover:text-foreground inline-flex items-center justify-center rounded-md border p-2 transition-colors md:hidden"
           onClick={() => setOpen(true)}
           aria-label="Open menu"
         >
@@ -53,7 +53,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden border-b border-border bg-background/95 backdrop-blur"
+            className="border-border bg-background/95 border-b backdrop-blur md:hidden"
           >
             <div className="mx-auto flex max-w-6xl flex-col gap-1 p-4">
               {LINKS.map((link) => (
@@ -63,8 +63,8 @@ export function Header() {
                   onClick={() => setOpen(false)}
                   className={`rounded-md px-3 py-2 text-sm transition-colors ${
                     pathname === link.href
-                      ? 'text-bush-500'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                      ? 'text-primary'
+                      : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
                   {link.label}
@@ -91,17 +91,15 @@ function NavLink({
     <Link
       href={href}
       aria-current={active ? 'page' : undefined}
-      className={`relative rounded-md px-3 py-2 text-sm transition-colors ${
-        active
-          ? 'text-bush-500'
-          : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+      className={`relative px-2 py-1 text-sm font-medium tracking-wide transition-colors ${
+        active ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
       }`}
     >
       {children}
       {active && (
         <motion.span
           layoutId="nav-underline"
-          className="absolute inset-x-3 -bottom-px h-px bg-bush-500"
+          className="bg-primary absolute inset-x-2 -bottom-2 h-[2px]"
         />
       )}
     </Link>

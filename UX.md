@@ -38,12 +38,14 @@ Every screen below plugs into one part of that flow.
 The landing card has two tabs:
 
 ### Sign in tab
+
 - **Email + password** — enter your email and password, press **Sign in**.
 - **or continue with a magic link** — enter just your email and press
   **Continue with a magic link**. Sift emails you a link; clicking it signs you in
   without a password.
 
 ### Sign up tab
+
 - **Create account** — enter your email, a password, and confirm it. After signing up
   you land on the Dashboard.
 
@@ -59,12 +61,14 @@ header) returns you to `/sign-in`.
 It has four stacked sections, top to bottom:
 
 ### 3a. Title bar + "Import Reddit posts" button
+
 - Shows live totals: `N discussions · N enriched · N sources · N courses`.
 - **Import Reddit posts** button → runs the import pipeline immediately against every
   configured source. A toast reports what happened per source
   (imported N / deduped N / skipped because recently synced / error).
 
 ### 3b. Overview cards (4 cards)
+
 1. **Most active sources** — sources with discussions published today. Click a source to
    jump to the filtered discussions list.
 2. **Top priority** — the highest-scoring discussions. Click to open the discussion detail.
@@ -75,9 +79,11 @@ It has four stacked sections, top to bottom:
 If data is missing, each card shows a short "run the pipeline" hint instead of an error.
 
 ### 3c. Reddit Sources manager
+
 See **Section 5** for full details.
 
 ### 3d. Discussions section (filters + table)
+
 See **Section 6** for full details.
 
 ---
@@ -85,6 +91,7 @@ See **Section 6** for full details.
 ## 4. Header (present on all dashboard pages)
 
 A fixed translucent bar with:
+
 - **Sift** logo → Dashboard.
 - Nav links: **Dashboard · Account · Knowledge base · Courses · Health**.
 - **Sun/moon** button → toggles light/dark theme.
@@ -97,20 +104,23 @@ A fixed translucent bar with:
 
 **Where:** Dashboard, middle section, "Reddit Sources" card.
 
-This controls *where* content comes from.
+This controls _where_ content comes from.
 
 ### Add a source
+
 1. Fill **Source name** (e.g. "Programming feeds").
 2. Fill **Subreddits (comma-separated)** (e.g. `programming, typescript, rust`).
    Names are normalised automatically (lowercase, no `r/` prefix).
 3. Press **Add source**. A toast confirms success.
 
 ### What a source row shows
+
 - Source kind badge + name.
 - Its subreddits (`r/programming, r/typescript, …`).
 - Status badge (enabled / disabled) and last-sync date.
 
 ### Delete a source
+
 Press the trash icon on the row, confirm the dialog. Deleting a source stops future
 imports for it.
 
@@ -121,6 +131,7 @@ imports for it.
 **Where:** Dashboard, bottom section, "Discussions" card + table.
 
 ### Filters (top bar)
+
 - **Source** — restrict to one source (or "All sources").
 - **Category** — restrict to a category.
 - **Min priority / Max priority** — numeric score range (0–100).
@@ -132,6 +143,7 @@ The **Topic** chip appears when a topic was selected from the Overview; use **Re
 to clear everything.
 
 ### The table
+
 Each row shows: title (+ summary), source, category, **Priority** badge, **KB** coverage
 badge, engagement (comments · points), and published date. Row count is shown above the
 table. Use **Previous / Next** to page.
@@ -146,10 +158,12 @@ Click any discussion title to open the **Discussion detail** (Section 7).
 title is linked).
 
 ### Header
+
 Title, source, subreddit, author, published time, comment/point counts, and an
 **Open original** link to the Reddit thread.
 
 ### Cards (2×2 grid)
+
 1. **Summary** — generated summary, category badge, keyword chips, and a collapsible
    "Read the full post".
 2. **Priority score** — the 0–100 score plus a **per-factor breakdown**:
@@ -162,10 +176,12 @@ Title, source, subreddit, author, published time, comment/point counts, and an
    reason.
 
 ### Second row
+
 5. **Suggested response outline** — step-by-step skeleton for replying in-thread.
 6. **Content ideas** — Blog / FAQ / Newsletter / Course angles, each with a reason.
 
 ### Bottom card
+
 **Course-section matches** — every course section/lesson this discussion maps to, with match
 scores. A **Manage courses** link jumps to the Courses screen.
 
@@ -178,13 +194,16 @@ scores. A **Manage courses** link jumps to the Courses screen.
 Uploads your own documents so Sift can tell whether discussions are already answered.
 
 ### Upload a document
+
 Supports PDF, Markdown, or plain text. Files go into your private Supabase Storage bucket;
 the server extracts text, chunks it, and embeds it.
 
 ### Documents list
+
 Each file shows name, type, chunk count, character count, and processing status.
 
 ### Discussion coverage
+
 - Press **Refresh coverage** to re-run the semantic comparison of all enriched discussions
   against your documents.
 - The list shows every discussion with a coverage badge: **Answered** (green/blue),
@@ -201,21 +220,25 @@ Flow: upload docs → refresh coverage → see gaps on the Dashboard and filter 
 Defines courses and matches them to discussions, turning recurring gaps into lessons.
 
 ### New course / Import outline
+
 - **New course** — create a blank course.
 - **Import outline** — paste a Markdown outline (`# / ## / ###` headings) or a CSV
   (`section,title,content`) to build the course structure automatically.
 
 ### Match course content
+
 Press **Refresh matches** to embed every section/lesson and find the closest one for each
 enriched discussion.
 
 ### Courses list
+
 - Each course shows its sections; each section lists its lessons.
 - Under each section: **"Answers N discussion(s)"** with the matching discussion titles,
   reasons, and similarity %.
 - **Add section / Add lesson** forms appear inline under each section.
 
 ### Candidate new lessons
+
 Recurring discussion clusters that **no** section answers — each is a suggestion for a new
 lesson you could add.
 
@@ -229,6 +252,7 @@ discussions are already covered → promote clusters into new lessons.
 **Route:** `/dashboard/account`
 
 Two cards:
+
 - **Profile** — email, full name, username, and plan.
 - **Session** — **Sign out** button.
 
@@ -269,13 +293,13 @@ The fastest way to see value:
 
 ## 13. Env vars that power these screens
 
-| Variable | Used for |
-| --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Auth + database + storage |
-| `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET` | Reddit import |
-| `GEMINI_API_KEY` | Enrichment, scoring, embeddings (Vercel) |
-| `KB_EMBEDDING_PROVIDER` | `gemini` on Vercel, `local` for dev |
-| `NEXT_PUBLIC_SITE_URL` | Absolute URLs (health page) |
-| `RESEND_API_KEY` / email sender | Magic-link emails |
+| Variable                                                     | Used for                                 |
+| ------------------------------------------------------------ | ---------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Auth + database + storage                |
+| `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET`                  | Reddit import                            |
+| `GEMINI_API_KEY`                                             | Enrichment, scoring, embeddings (Vercel) |
+| `KB_EMBEDDING_PROVIDER`                                      | `gemini` on Vercel, `local` for dev      |
+| `NEXT_PUBLIC_SITE_URL`                                       | Absolute URLs (health page)              |
+| `RESEND_API_KEY` / email sender                              | Magic-link emails                        |
 
 See `.env.example` for the full list.

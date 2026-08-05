@@ -61,9 +61,9 @@ export function Overview({
                 <button
                   type="button"
                   onClick={() => onSelectSource(source.id)}
-                  className="hover:bg-accent/50 focus-visible:ring-ring group flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none transition-colors focus-visible:ring-2"
+                  className="hover:bg-accent/50 focus-visible:ring-ring group flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors outline-none focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium group-hover:text-bush-600 dark:group-hover:text-bush-400">
+                  <span className="group-hover:text-bush-600 dark:group-hover:text-bush-400 min-w-0 truncate font-medium">
                     {source.name}
                   </span>
                   <span className="text-sand-500 dark:text-sand-400 flex shrink-0 items-center gap-2 text-xs">
@@ -94,9 +94,9 @@ export function Overview({
               <li key={discussion.id}>
                 <Link
                   href={`/dashboard/discussions/${discussion.id}`}
-                  className="hover:bg-accent/50 focus-visible:ring-ring group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm outline-none transition-colors focus-visible:ring-2"
+                  className="hover:bg-accent/50 focus-visible:ring-ring group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm transition-colors outline-none focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium group-hover:text-bush-600 dark:group-hover:text-bush-400">
+                  <span className="group-hover:text-bush-600 dark:group-hover:text-bush-400 min-w-0 truncate font-medium">
                     {discussion.title}
                   </span>
                   <ScoreBadge score={discussion.priorityScore} />
@@ -123,9 +123,9 @@ export function Overview({
                 <button
                   type="button"
                   onClick={() => onSelectTopic(trend.topic)}
-                  className="hover:bg-accent/50 focus-visible:ring-ring group flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none transition-colors focus-visible:ring-2"
+                  className="hover:bg-accent/50 focus-visible:ring-ring group flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors outline-none focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium group-hover:text-bush-600 dark:group-hover:text-bush-400">
+                  <span className="group-hover:text-bush-600 dark:group-hover:text-bush-400 min-w-0 truncate font-medium">
                     {trend.topic}
                   </span>
                   <span className="flex shrink-0 items-center gap-2 text-xs">
@@ -153,9 +153,9 @@ export function Overview({
               <li key={discussion.id}>
                 <Link
                   href={`/dashboard/discussions/${discussion.id}`}
-                  className="hover:bg-accent/50 focus-visible:ring-ring group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm outline-none transition-colors focus-visible:ring-2"
+                  className="hover:bg-accent/50 focus-visible:ring-ring group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm transition-colors outline-none focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium group-hover:text-bush-600 dark:group-hover:text-bush-400">
+                  <span className="group-hover:text-bush-600 dark:group-hover:text-bush-400 min-w-0 truncate font-medium">
                     {discussion.title}
                   </span>
                   <ScoreBadge score={discussion.priorityScore} />
@@ -177,7 +177,7 @@ export function Overview({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, delay: index * 0.06, ease: 'easeOut' }}
           >
-            <Card className="h-full transition-colors hover:border-border/80">
+            <Card className="hover:border-border/80 h-full transition-colors">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-sm">
                   {card.icon}

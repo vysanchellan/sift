@@ -8,16 +8,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/85',
+        default:
+          'bg-primary text-[#efefef] hover:bg-primary/90 font-semibold border border-transparent shadow-sm',
         outline:
-          'border-bush-500/60 bg-background text-bush-600 hover:border-bush-500 hover:bg-bush-500/5 hover:text-bush-500 aria-expanded:border-bush-500 aria-expanded:bg-bush-500/5 aria-expanded:text-bush-500',
+          'border border-primary text-primary bg-transparent hover:bg-primary/10 hover:text-primary/90 transition-colors',
         secondary:
-          'border-border bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground',
-        ghost:
-          'text-muted-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground',
+          'border border-border/80 bg-transparent text-foreground/80 hover:bg-border/30 hover:text-foreground',
+        ghost: 'text-muted-foreground hover:bg-border/20 hover:text-foreground',
         destructive:
           'bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20',
-        link: 'text-bush-600 underline-offset-4 hover:text-bush-500 hover:underline',
+        link: 'text-primary underline-offset-4 hover:text-primary/90 hover:underline',
       },
       size: {
         default:

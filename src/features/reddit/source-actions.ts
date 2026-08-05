@@ -38,7 +38,8 @@ async function getAuthedUser() {
 function validateSubreddit(subreddit: string): string | null {
   const trimmed = subreddit.trim()
   if (!trimmed) return 'Subreddit name is required.'
-  if (!/^[a-zA-Z0-9_]{1,21}$/.test(trimmed)) return 'Invalid subreddit name (alphanumeric + underscore, max 21 chars).'
+  if (!/^[a-zA-Z0-9_]{1,21}$/.test(trimmed))
+    return 'Invalid subreddit name (alphanumeric + underscore, max 21 chars).'
   return null
 }
 
@@ -61,11 +62,20 @@ export async function createRedditSource(input: {
   // Parse comma-separated subreddits
   const subredditList = input.subreddits
     .split(',')
-    .map((s) => s.trim().toLowerCase().replace(/^\/?r\//, ''))
+    .map((s) =>
+      s
+        .trim()
+        .toLowerCase()
+        .replace(/^\/?r\//, '')
+    )
     .filter(Boolean)
 
   if (subredditList.length === 0) {
-    return { ok: false, error: 'At least one valid subreddit is required.', errorCode: 'validation' }
+    return {
+      ok: false,
+      error: 'At least one valid subreddit is required.',
+      errorCode: 'validation',
+    }
   }
 
   const supabase = await createClient()
@@ -89,7 +99,11 @@ export async function createRedditSource(input: {
 
   if (error) {
     if (error.code === '23505') {
-      return { ok: false, error: 'A source for this subreddit already exists.', errorCode: 'conflict' }
+      return {
+        ok: false,
+        error: 'A source for this subreddit already exists.',
+        errorCode: 'conflict',
+      }
     }
     return { ok: false, error: `Could not create source: ${error.message}` }
   }
@@ -134,7 +148,11 @@ export async function deleteSource(sourceId: string): Promise<SourceActionResult
 /**
  * Lists all sources for the signed-in user.
  */
-export async function listSources(): Promise<{ ok: boolean; sources?: SourceListItem[]; error?: string }> {
+export async function listSources(): Promise<{
+  ok: boolean
+  sources?: SourceListItem[]
+  error?: string
+}> {
   const { user, authError } = await getAuthedUser()
   if (authError || !user) {
     return { ok: false, error: 'You must be signed in.' }

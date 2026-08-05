@@ -31,15 +31,15 @@ const columns = [
   columnHelper.accessor('title', {
     header: 'Discussion',
     cell: ({ row, getValue }) => (
-      <div className="min-w-0 max-w-md">
+      <div className="max-w-md min-w-0">
         <Link
           href={`/dashboard/discussions/${row.original.id}`}
-          className="font-medium text-foreground hover:underline hover:text-bush-600 dark:hover:text-bush-400 transition-colors"
+          className="text-foreground hover:text-bush-600 dark:hover:text-bush-400 font-medium transition-colors hover:underline"
         >
           {String(getValue())}
         </Link>
         {row.original.summary && (
-          <p className="text-sand-500 dark:text-sand-400 line-clamp-2 mt-0.5 text-xs leading-relaxed">
+          <p className="text-sand-500 dark:text-sand-400 mt-0.5 line-clamp-2 text-xs leading-relaxed">
             {row.original.summary}
           </p>
         )}
@@ -51,7 +51,9 @@ const columns = [
     cell: ({ row }) => {
       const name =
         row.original.sourceName ?? (row.original.subreddit ? `r/${row.original.subreddit}` : null)
-      return <span className="text-sand-500 dark:text-sand-400 truncate text-sm">{name ?? '—'}</span>
+      return (
+        <span className="text-sand-500 dark:text-sand-400 truncate text-sm">{name ?? '—'}</span>
+      )
     },
   }),
   columnHelper.accessor('category', {
@@ -81,7 +83,7 @@ const columns = [
   columnHelper.accessor('numComments', {
     header: 'Engagement',
     cell: ({ row }) => (
-      <span className="text-sand-500 dark:text-sand-400 whitespace-nowrap tabular-nums text-sm">
+      <span className="text-sand-500 dark:text-sand-400 text-sm whitespace-nowrap tabular-nums">
         {row.original.numComments} comments · {row.original.score} pts
       </span>
     ),
@@ -153,7 +155,7 @@ export function DiscussionsTable({
                     {headerGroup.headers.map((header) => (
                       <TableHead
                         key={header.id}
-                        className="text-xs font-semibold uppercase tracking-wider text-sand-600 dark:text-sand-400"
+                        className="text-sand-600 dark:text-sand-400 text-xs font-semibold tracking-wider uppercase"
                       >
                         {flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>

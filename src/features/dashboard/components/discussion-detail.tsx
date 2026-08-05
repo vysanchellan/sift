@@ -89,8 +89,10 @@ function contentIdeas(ideas: ContentIdeas) {
               <Icon className="text-sand-500 dark:text-sand-400 size-4" />
               <p className="font-medium capitalize">{key}</p>
             </div>
-            <p className="pl-6 font-medium text-sm">{idea.title}</p>
-            <p className="text-sand-500 dark:text-sand-400 pl-6 text-sm leading-relaxed">{idea.reason}</p>
+            <p className="pl-6 text-sm font-medium">{idea.title}</p>
+            <p className="text-sand-500 dark:text-sand-400 pl-6 text-sm leading-relaxed">
+              {idea.reason}
+            </p>
           </li>
         )
       })}
@@ -144,7 +146,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
     <div className="space-y-6">
       <Link
         href="/dashboard"
-        className="text-sand-600 dark:text-sand-400 hover:text-bush-600 dark:hover:text-bush-400 inline-flex items-center gap-1.5 text-sm font-medium transition-colors focus-visible:ring-bush-500 focus-visible:ring-2 focus-visible:outline-none rounded-md px-1"
+        className="text-sand-600 dark:text-sand-400 hover:text-bush-600 dark:hover:text-bush-400 focus-visible:ring-bush-500 inline-flex items-center gap-1.5 rounded-md px-1 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none"
       >
         <ArrowLeft className="size-4" />
         Back to dashboard
@@ -165,7 +167,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
               href={discussion.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-bush-600 dark:text-bush-400 underline underline-offset-2 hover:text-bush-700 dark:hover:text-bush-300 transition-colors"
+              className="text-bush-600 dark:text-bush-400 hover:text-bush-700 dark:hover:text-bush-300 inline-flex items-center gap-1 underline underline-offset-2 transition-colors"
             >
               Open original
               <ExternalLink className="size-3" />
@@ -203,10 +205,10 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
             </div>
             {discussion.body && (
               <details className="text-sand-600 dark:text-sand-400 text-sm">
-                <summary className="cursor-pointer hover:text-foreground transition-colors">
+                <summary className="hover:text-foreground cursor-pointer transition-colors">
                   Read the full post
                 </summary>
-                <p className="mt-2 whitespace-pre-wrap leading-relaxed">{discussion.body}</p>
+                <p className="mt-2 leading-relaxed whitespace-pre-wrap">{discussion.body}</p>
               </details>
             )}
           </CardContent>
@@ -304,8 +306,13 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
             {recommendations ? (
               <ol className="space-y-2">
                 {recommendations.responseOutline.map((step, index) => (
-                  <li key={index} className="text-sand-600 dark:text-sand-400 flex gap-3 text-sm leading-relaxed">
-                    <span className="text-foreground/40 mt-0.5 tabular-nums shrink-0">{index + 1}.</span>
+                  <li
+                    key={index}
+                    className="text-sand-600 dark:text-sand-400 flex gap-3 text-sm leading-relaxed"
+                  >
+                    <span className="text-foreground/40 mt-0.5 shrink-0 tabular-nums">
+                      {index + 1}.
+                    </span>
                     <span>{step}</span>
                   </li>
                 ))}
@@ -343,27 +350,30 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
         <CardContent>
           {data.courseMatches.length === 0 ? (
             <p className="text-sand-500 dark:text-sand-400 text-sm">
-              No course matches yet. Add courses and run &ldquo;Match course content&rdquo; from the Courses page.
+              No course matches yet. Add courses and run &ldquo;Match course content&rdquo; from the
+              Courses page.
             </p>
           ) : (
             <ul className="space-y-2">
               {data.courseMatches.map((match) => (
                 <li
                   key={match.id}
-                  className="bg-sand-100/50 dark:bg-sand-800/30 flex items-center justify-between gap-3 rounded-md border px-4 py-3 transition-colors hover:bg-sand-100 dark:hover:bg-sand-800/50"
+                  className="bg-sand-100/50 dark:bg-sand-800/30 hover:bg-sand-100 dark:hover:bg-sand-800/50 flex items-center justify-between gap-3 rounded-md border px-4 py-3 transition-colors"
                 >
                   <div className="min-w-0">
-                    <p className="truncate font-medium text-sm">
+                    <p className="truncate text-sm font-medium">
                       {match.lessonTitle
                         ? `${match.sectionTitle ?? 'Section'} → ${match.lessonTitle}`
                         : (match.sectionTitle ?? 'Untitled section')}
                     </p>
                     {match.reason && (
-                      <p className="text-sand-500 dark:text-sand-400 truncate text-xs">{match.reason}</p>
+                      <p className="text-sand-500 dark:text-sand-400 truncate text-xs">
+                        {match.reason}
+                      </p>
                     )}
                   </div>
                   {match.score != null && (
-                    <span className="text-sand-500 dark:text-sand-400 shrink-0 text-xs tabular-nums font-medium">
+                    <span className="text-sand-500 dark:text-sand-400 shrink-0 text-xs font-medium tabular-nums">
                       {(match.score * 100).toFixed(0)}%
                     </span>
                   )}

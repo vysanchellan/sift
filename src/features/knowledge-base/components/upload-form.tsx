@@ -2,9 +2,6 @@
 
 import { useCallback, useRef, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { createClient } from '@/lib/supabase/client'
 import { useToast } from '@/components/ui/toast'
 
@@ -24,55 +21,74 @@ export function KnowledgeBaseUploadForm() {
   const inputRef = useRef<HTMLInputElement>(null)
   const { toast } = useToast()
 
-  const handleFile = useCallback(async (file: File) => {
-    setPending(true)
-    try {
-      const supabase = createClient()
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (!user) {
-        toast({ title: 'Upload failed', description: 'You must be signed in to upload.', variant: 'destructive' })
-        return
-      }
+  const handleFile = useCallback(
+    async (file: File) => {
+      setPending(true)
+      try {
+        const supabase = createClient()
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
+        if (!user) {
+          toast({
+            title: 'Upload failed',
+            description: 'You must be signed in to upload.',
+            variant: 'destructive',
+          })
+          return
+        }
 
-      const storagePath = `${user.id}/${crypto.randomUUID()}-${file.name}`
-      const { error: uploadError } = await supabase.storage
-        .from(KB_BUCKET_NAME)
-        .upload(storagePath, file, { upsert: false })
+        const storagePath = `${user.id}/${crypto.randomUUID()}-${file.name}`
+        const { error: uploadError } = await supabase.storage
+          .from(KB_BUCKET_NAME)
+          .upload(storagePath, file, { upsert: false })
 
-      if (uploadError) {
-        toast({ title: 'Storage upload failed', description: uploadError.message, variant: 'destructive' })
-        return
-      }
+        if (uploadError) {
+          toast({
+            title: 'Storage upload failed',
+            description: uploadError.message,
+            variant: 'destructive',
+          })
+          return
+        }
 
-      const result = await uploadKnowledgeBaseDocument({
-        storagePath,
-        fileName: file.name,
-        mimeType: file.type || 'text/plain',
-        sizeBytes: file.size,
-      })
-
-      if (result.ok) {
-        toast({
-          title: 'Document uploaded',
-          description: `${result.fileName} — ${result.chunkCount ?? 0} chunks, ${formatBytes(result.charCount ?? 0)} of text.`,
-          variant: 'success',
+        const result = await uploadKnowledgeBaseDocument({
+          storagePath,
+          fileName: file.name,
+          mimeType: file.type || 'text/plain',
+          sizeBytes: file.size,
         })
-      } else {
-        toast({ title: 'Upload failed', description: result.error ?? 'Unknown error', variant: 'destructive' })
+
+        if (result.ok) {
+          toast({
+            title: 'Document uploaded',
+            description: `${result.fileName} — ${result.chunkCount ?? 0} chunks, ${formatBytes(result.charCount ?? 0)} of text.`,
+            variant: 'success',
+          })
+        } else {
+          toast({
+            title: 'Upload failed',
+            description: result.error ?? 'Unknown error',
+            variant: 'destructive',
+          })
+        }
+      } finally {
+        setPending(false)
+        if (inputRef.current) inputRef.current.value = ''
       }
-    } finally {
-      setPending(false)
-      if (inputRef.current) inputRef.current.value = ''
-    }
-  }, [toast])
+    },
+    [toast]
+  )
 
   return (
-    <div className="space-y-3">
-      <div className="grid gap-2">
-        <Label htmlFor="kb-file">Upload a document</Label>
-        <Input
+    <div className="space-y-4">
+      <div
+        onClick={() => !pending && inputRef.current?.click()}
+        className={`border-border/80 flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border border-dashed px-4 py-10 transition-colors ${
+          pending ? 'pointer-events-none opacity-60' : 'hover:border-primary/60'
+        }`}
+      >
+        <input
           id="kb-file"
           ref={inputRef}
           type="file"
@@ -82,23 +98,31 @@ export function KnowledgeBaseUploadForm() {
             const file = event.target.files?.[0]
             if (file) void handleFile(file)
           }}
+          className="hidden"
         />
-        <p className="text-muted-foreground text-xs">
-          PDF, Markdown, or plain text (max 25 MB). Text is extracted, chunked, embedded, and stored
-          in your knowledge base.
-        </p>
-      </div>
-
-      {pending && (
-        <p className="text-muted-foreground text-sm">
-          Extracting and embedding… this can take a moment.
-        </p>
-      )}
-
-      <div>
-        <Button type="button" size="sm" variant="outline" onClick={() => inputRef.current?.click()}>
-          Choose file
-        </Button>
+        <div className="border-primary/25 bg-primary/5 flex size-12 items-center justify-center rounded-full border">
+          <svg
+            className="text-primary size-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+            />
+          </svg>
+        </div>
+        <div className="text-center">
+          <p className="text-foreground text-sm font-medium">
+            {pending ? 'Extracting, chunking & embedding…' : 'Click to select a file'}
+          </p>
+          <p className="text-muted-foreground mt-1 text-xs">
+            PDF, Markdown, or plain text (max 25 MB)
+          </p>
+        </div>
       </div>
     </div>
   )

@@ -41,7 +41,11 @@ export function ImportNowButton() {
           variant: 'success',
         })
       } else {
-        toast({ title: 'Import failed', description: result.error ?? 'Unknown error', variant: 'destructive' })
+        toast({
+          title: 'Import failed',
+          description: result.error ?? 'Unknown error',
+          variant: 'destructive',
+        })
       }
     } finally {
       setPending(false)
