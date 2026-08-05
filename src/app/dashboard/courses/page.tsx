@@ -16,10 +16,10 @@ function Similarity({ score }: { score: number | null }) {
   const pct = (Number(score) * 100).toFixed(0)
   const tone =
     Number(score) >= 0.5
-      ? 'border-green-600/30 bg-green-600/10 text-green-700'
+      ? 'border-bush-600/30 bg-bush-600/10 text-bush-700 dark:border-bush-400/30 dark:bg-bush-400/10 dark:text-bush-300'
       : Number(score) >= 0.3
-        ? 'border-amber-600/30 bg-amber-600/10 text-amber-700'
-        : 'border-red-600/30 bg-red-600/10 text-red-700'
+        ? 'border-bay-600/30 bg-bay-600/10 text-bay-700 dark:border-bay-400/30 dark:bg-bay-400/10 dark:text-bay-300'
+        : 'border-red-600/30 bg-red-600/10 text-red-700 dark:border-red-400/30 dark:bg-red-400/10 dark:text-red-300'
   return (
     <span
       className={`inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-xs font-medium ${tone}`}
@@ -36,7 +36,7 @@ export default async function CourseMapperPage() {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    return <p className="text-muted-foreground">Sign in to view your course mapper.</p>
+    return <p className="text-sand-500 dark:text-sand-400">Sign in to view your course mapper.</p>
   }
 
   const [coursesResult, ideasResult] = await Promise.all([
@@ -47,8 +47,8 @@ export default async function CourseMapperPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold">Course mapper</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-semibold tracking-tight">Course mapper</h1>
+        <p className="text-sand-500 dark:text-sand-400">
           Define courses as sections and lessons, then match your discussions against them. Sections
           that already answer a discussion are shown inline; unmatched recurring clusters become
           candidate new lessons.
@@ -56,7 +56,7 @@ export default async function CourseMapperPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+        <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle>New course</CardTitle>
             <CardDescription>
@@ -68,7 +68,7 @@ export default async function CourseMapperPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle>Import outline</CardTitle>
             <CardDescription>
@@ -82,7 +82,7 @@ export default async function CourseMapperPage() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle>Match course content to discussions</CardTitle>
           <CardDescription>
@@ -95,7 +95,7 @@ export default async function CourseMapperPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle>Courses</CardTitle>
           <CardDescription>Sections with the discussions they already answer.</CardDescription>
@@ -103,7 +103,7 @@ export default async function CourseMapperPage() {
         <CardContent>
           {coursesResult.error && <p className="text-destructive text-sm">{coursesResult.error}</p>}
           {coursesResult.courses.length === 0 ? (
-            <p className="text-muted-foreground">
+            <p className="text-sand-500 dark:text-sand-400">
               No courses yet. Create one or import an outline.
             </p>
           ) : (
@@ -113,12 +113,12 @@ export default async function CourseMapperPage() {
                   <div>
                     <h3 className="font-semibold">{course.title}</h3>
                     {course.description && (
-                      <p className="text-muted-foreground text-sm">{course.description}</p>
+                      <p className="text-sand-500 dark:text-sand-400 text-sm">{course.description}</p>
                     )}
                   </div>
                   <ul className="space-y-4 pl-4">
                     {course.sections.length === 0 && (
-                      <li className="text-muted-foreground text-sm">
+                      <li className="text-sand-500 dark:text-sand-400 text-sm">
                         No sections yet. Add one below.
                       </li>
                     )}
@@ -127,13 +127,13 @@ export default async function CourseMapperPage() {
                         <div>
                           <h4 className="font-medium">{section.title}</h4>
                           {section.description && (
-                            <p className="text-muted-foreground text-sm">{section.description}</p>
+                            <p className="text-sand-500 dark:text-sand-400 text-sm">{section.description}</p>
                           )}
                         </div>
 
                         <ul className="mt-1 space-y-0.5">
                           {section.lessons.map((lesson) => (
-                            <li key={lesson.id} className="text-muted-foreground text-sm">
+                            <li key={lesson.id} className="text-sand-600 dark:text-sand-400 text-sm">
                               • {lesson.title}
                               {lesson.content && <span> — {lesson.content}</span>}
                             </li>
@@ -142,21 +142,21 @@ export default async function CourseMapperPage() {
 
                         {section.matches.length > 0 && (
                           <div className="mt-2">
-                            <p className="text-muted-foreground text-xs font-medium uppercase">
+                            <p className="text-sand-500 dark:text-sand-400 text-xs font-medium uppercase">
                               Answers {section.matches.length} discussion(s)
                             </p>
                             <ul className="mt-1 space-y-1">
                               {section.matches.map((match) => (
                                 <li
                                   key={match.id}
-                                  className="bg-muted/30 flex items-center justify-between gap-3 rounded-md border px-2 py-1 text-sm"
+                                  className="bg-sand-100/50 dark:bg-sand-800/30 flex items-center justify-between gap-3 rounded-md border px-3 py-2 text-sm transition-colors hover:bg-sand-100 dark:hover:bg-sand-800/50"
                                 >
                                   <div className="min-w-0">
                                     <p className="truncate font-medium">
                                       {match.discussion?.title ?? 'Unknown discussion'}
                                     </p>
                                     {match.reason && (
-                                      <p className="text-muted-foreground truncate text-xs">
+                                      <p className="text-sand-500 dark:text-sand-400 truncate text-xs">
                                         {match.reason}
                                       </p>
                                     )}
@@ -184,7 +184,7 @@ export default async function CourseMapperPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle>Candidate new lessons</CardTitle>
           <CardDescription>
@@ -195,7 +195,7 @@ export default async function CourseMapperPage() {
         <CardContent>
           {ideasResult.error && <p className="text-destructive text-sm">{ideasResult.error}</p>}
           {ideasResult.ideas.length === 0 ? (
-            <p className="text-muted-foreground">
+            <p className="text-sand-500 dark:text-sand-400">
               No candidate clusters. Run clustering (Prompt 7) and add sections to see ideas.
             </p>
           ) : (
@@ -204,12 +204,12 @@ export default async function CourseMapperPage() {
                 <li key={cluster.id} className="py-2">
                   <p className="font-medium">
                     {cluster.title}{' '}
-                    <span className="text-muted-foreground text-xs font-normal">
+                    <span className="text-sand-500 dark:text-sand-400 text-xs font-normal">
                       · {memberCount} discussion(s)
                     </span>
                   </p>
                   {cluster.summary && (
-                    <p className="text-muted-foreground text-sm">{cluster.summary}</p>
+                    <p className="text-sand-500 dark:text-sand-400 text-sm">{cluster.summary}</p>
                   )}
                 </li>
               ))}

@@ -36,7 +36,7 @@ export function DiscussionsSection({
         <h2 id="discussions-heading" className="text-lg font-semibold tracking-tight">
           Discussions
         </h2>
-        <p className="text-muted-foreground mt-1 text-sm">
+        <p className="text-sand-500 dark:text-sand-400 mt-1 text-sm">
           Filter and review every imported discussion by priority, source, category, coverage, and
           date.
         </p>

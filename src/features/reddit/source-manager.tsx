@@ -68,7 +68,7 @@ export function SourceManager() {
   }
 
   return (
-    <Card className="w-full">
+    <Card className="w-full border-border/60 shadow-sm">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Plus className="size-4" />
@@ -79,10 +79,12 @@ export function SourceManager() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
-        <form onSubmit={handleCreate} className="space-y-4 p-4 bg-muted/30 rounded-lg">
+        <form onSubmit={handleCreate} className="space-y-4 p-4 bg-sand-100/50 dark:bg-sand-800/30 rounded-lg">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
-              <Label htmlFor="source-name">Source name</Label>
+              <Label htmlFor="source-name" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+                Source name
+              </Label>
               <Input
                 id="source-name"
                 value={formData.name}
@@ -93,7 +95,9 @@ export function SourceManager() {
               />
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="source-subreddits">Subreddits (comma-separated)</Label>
+              <Label htmlFor="source-subreddits" className="text-xs font-medium text-sand-600 dark:text-sand-400">
+                Subreddits (comma-separated)
+              </Label>
               <Input
                 id="source-subreddits"
                 value={formData.subreddits}
@@ -104,11 +108,11 @@ export function SourceManager() {
               />
             </div>
           </div>
-<p className="text-xs text-muted-foreground">
-            Example: <code className="px-1 bg-muted rounded">programming, typescript, rust</code> &mdash;
+          <p className="text-xs text-sand-500 dark:text-sand-400">
+            Example: <code className="px-1 bg-sand-200 dark:bg-sand-800 rounded">programming, typescript, rust</code> &mdash;
             names are normalized (lowercase, no &ldquo;r/&rdquo; prefix).
           </p>
-          <Button type="submit" disabled={creating} className="w-full sm:w-auto">
+          <Button type="submit" disabled={creating} className="w-full sm:w-auto bg-bush-600 hover:bg-bush-700 dark:bg-bush-500 dark:hover:bg-bush-400 dark:text-bush-950">
             {creating ? <Loader2 className="size-4 animate-spin" /> : 'Add source'}
           </Button>
         </form>
@@ -116,33 +120,33 @@ export function SourceManager() {
         {loading ? (
           <div className="space-y-3" aria-busy="true">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-16 animate-pulse bg-muted rounded-lg" />
+              <div key={i} className="h-16 animate-pulse bg-sand-200 dark:bg-sand-800 rounded-lg" />
             ))}
           </div>
         ) : sources.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-muted-foreground">No sources configured yet.</p>
-            <p className="text-xs text-muted-foreground mt-1">Add a source above to start importing discussions.</p>
+            <p className="text-sand-500 dark:text-sand-400">No sources configured yet.</p>
+            <p className="text-xs text-sand-500 dark:text-sand-400 mt-1">Add a source above to start importing discussions.</p>
           </div>
         ) : (
           <ul className="space-y-2">
             {sources.map((source) => (
               <li
                 key={source.id}
-                className="flex items-center justify-between gap-4 p-3 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
+                className="flex items-center justify-between gap-4 p-3 bg-sand-100/50 dark:bg-sand-800/30 rounded-lg hover:bg-sand-100 dark:hover:bg-sand-800/50 transition-colors"
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <Badge variant="outline" className="capitalize">{source.kind}</Badge>
                     <span className="font-medium truncate">{source.name}</span>
                   </div>
-                  <div className="text-muted-foreground text-sm flex flex-wrap gap-2">
+                  <div className="text-sand-500 dark:text-sand-400 text-sm flex flex-wrap gap-2">
                     <span>
                       Subreddits:{' '}
                       {(source.config as Record<string, string[]>)?.subreddits?.map((s) => `r/${s}`).join(', ') ?? '—'}
                     </span>
                     <span className="hidden sm:inline">·</span>
-                    <Badge variant={source.isEnabled ? 'success' : 'secondary'}>
+                    <Badge variant={source.isEnabled ? 'default' : 'secondary'}>
                       {source.status}
                     </Badge>
                     {source.lastSyncedAt && (

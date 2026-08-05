@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowDown, ArrowUp, RotateCcw, X } from 'lucide-react'
+import { ArrowUp, RotateCcw, X } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -73,7 +73,7 @@ export function FilterBar({
     <div className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-1.5">
-          <Label htmlFor="filter-source" className="text-xs font-medium">
+          <Label htmlFor="filter-source" className="text-xs font-medium text-sand-600 dark:text-sand-400">
             Source
           </Label>
           <Select
@@ -100,7 +100,7 @@ export function FilterBar({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="filter-category" className="text-xs font-medium">
+          <Label htmlFor="filter-category" className="text-xs font-medium text-sand-600 dark:text-sand-400">
             Category
           </Label>
           <Select
@@ -128,7 +128,7 @@ export function FilterBar({
 
         <div className="grid grid-cols-2 gap-2">
           <div className="space-y-1.5">
-            <Label htmlFor="filter-min-score" className="text-xs font-medium">
+            <Label htmlFor="filter-min-score" className="text-xs font-medium text-sand-600 dark:text-sand-400">
               Min priority
             </Label>
             <Input
@@ -147,7 +147,7 @@ export function FilterBar({
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="filter-max-score" className="text-xs font-medium">
+            <Label htmlFor="filter-max-score" className="text-xs font-medium text-sand-600 dark:text-sand-400">
               Max priority
             </Label>
             <Input
@@ -169,7 +169,7 @@ export function FilterBar({
 
         <div className="grid grid-cols-2 gap-2">
           <div className="space-y-1.5">
-            <Label htmlFor="filter-from" className="text-xs font-medium">
+            <Label htmlFor="filter-from" className="text-xs font-medium text-sand-600 dark:text-sand-400">
               From
             </Label>
             <Input
@@ -180,7 +180,7 @@ export function FilterBar({
             />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="filter-to" className="text-xs font-medium">
+            <Label htmlFor="filter-to" className="text-xs font-medium text-sand-600 dark:text-sand-400">
               To
             </Label>
             <Input
@@ -193,7 +193,7 @@ export function FilterBar({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="filter-kb-gap" className="text-xs font-medium">
+          <Label htmlFor="filter-kb-gap" className="text-xs font-medium text-sand-600 dark:text-sand-400">
             KB coverage
           </Label>
           <Select
@@ -217,7 +217,7 @@ export function FilterBar({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="filter-sort" className="text-xs font-medium">
+          <Label htmlFor="filter-sort" className="text-xs font-medium text-sand-600 dark:text-sand-400">
             Sort by
           </Label>
           <div className="flex items-center gap-2">
@@ -247,7 +247,7 @@ export function FilterBar({
               aria-label={filters.order === 'asc' ? 'Sort ascending' : 'Sort descending'}
               title={filters.order === 'asc' ? 'Sort ascending' : 'Sort descending'}
             >
-              {filters.order === 'asc' ? <ArrowUp /> : <ArrowDown />}
+              <ArrowUp />
             </Button>
           </div>
         </div>
@@ -262,7 +262,7 @@ export function FilterBar({
                 type="button"
                 onClick={() => onChange({ topic: null })}
                 aria-label={`Remove topic filter ${filters.topic}`}
-                className="hover:text-foreground text-muted-foreground outline-none transition-colors"
+                className="hover:text-foreground text-sand-500 dark:text-sand-400 outline-none transition-colors"
               >
                 <X className="size-3" />
               </button>

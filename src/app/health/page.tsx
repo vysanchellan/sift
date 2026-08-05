@@ -17,10 +17,10 @@ interface HealthResponse {
 }
 
 const STATUS_CONFIG = {
-  ok: { label: 'Operational', icon: CheckCircle, variant: 'success' as const, color: 'text-green-600' },
-  degraded: { label: 'Degraded', icon: AlertTriangle, variant: 'warning' as const, color: 'text-amber-600' },
-  down: { label: 'Down', icon: AlertCircle, variant: 'destructive' as const, color: 'text-red-600' },
-  na: { label: 'Not Applicable', icon: AlertTriangle, variant: 'secondary' as const, color: 'text-muted-foreground' },
+  ok: { label: 'Operational', icon: CheckCircle, variant: 'default' as const, color: 'text-bush-700 dark:text-bush-400' },
+  degraded: { label: 'Degraded', icon: AlertTriangle, variant: 'warning' as const, color: 'text-bay-700 dark:text-bay-400' },
+  down: { label: 'Down', icon: AlertCircle, variant: 'destructive' as const, color: 'text-red-600 dark:text-red-400' },
+  na: { label: 'Not Applicable', icon: AlertTriangle, variant: 'secondary' as const, color: 'text-sand-500 dark:text-sand-400' },
 }
 
 async function fetchHealth(): Promise<HealthResponse> {
@@ -35,13 +35,13 @@ export default async function HealthPage() {
   return (
     <div className="mx-auto w-full max-w-3xl space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold">System Health</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-semibold tracking-tight">System Health</h1>
+        <p className="text-sand-500 dark:text-sand-400">
           Real-time connectivity status for all external providers and services.
         </p>
       </div>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <RefreshCw className="size-4" />
@@ -52,7 +52,10 @@ export default async function HealthPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Badge variant={health.status === 'healthy' ? 'success' : health.status === 'degraded' ? 'warning' : 'destructive'} className="text-lg px-3 py-1">
+          <Badge
+            variant={health.status === 'healthy' ? 'default' : health.status === 'degraded' ? 'warning' : 'destructive'}
+            className="text-lg px-3 py-1"
+          >
             {health.status.toUpperCase()}
           </Badge>
         </CardContent>
@@ -63,14 +66,14 @@ export default async function HealthPage() {
           const config = STATUS_CONFIG[check.status]
           const Icon = config.icon
           return (
-            <Card key={check.name} className="transition-colors hover:bg-muted/30">
+            <Card key={check.name} className="border-border/60 shadow-sm transition-colors hover:bg-sand-100/50 dark:hover:bg-sand-800/30">
               <CardContent className="pt-4 pb-4">
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3 min-w-0">
                     <Icon className={`${config.color} size-5 flex-shrink-0`} aria-hidden="true" />
                     <div className="min-w-0">
                       <p className="font-medium truncate">{check.name}</p>
-                      <p className="text-muted-foreground text-sm truncate">
+                      <p className="text-sand-500 dark:text-sand-400 text-sm truncate">
                         {check.details && Object.entries(check.details).map(([k, v]) => `${k}: ${v}`).join(' · ')}
                       </p>
                     </div>
@@ -78,7 +81,7 @@ export default async function HealthPage() {
                   <div className="flex items-center gap-3 flex-shrink-0">
                     <Badge variant={config.variant}>{config.label}</Badge>
                     {check.latencyMs != null && (
-                      <span className="text-muted-foreground text-sm tabular-nums">
+                      <span className="text-sand-500 dark:text-sand-400 text-sm tabular-nums">
                         {check.latencyMs}ms
                       </span>
                     )}
@@ -95,13 +98,13 @@ export default async function HealthPage() {
         })}
       </div>
 
-      <div className="flex items-center justify-between border-t pt-4 text-sm text-muted-foreground">
+      <div className="flex items-center justify-between border-t pt-4 text-sm text-sand-500 dark:text-sand-400">
         <span>Sift v0.1.0</span>
         <a
           href="/api/health"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline hover:text-foreground"
+          className="underline hover:text-foreground transition-colors"
         >
           Raw JSON
         </a>

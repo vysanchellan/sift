@@ -18,11 +18,11 @@ export function DashboardError({ message }: { message: string }) {
 export function DashboardEmpty({ title, description }: { title: string; description: string }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
-      <div className="bg-muted/50 flex size-12 items-center justify-center rounded-full">
-        <SearchX className="text-muted-foreground size-5" />
+      <div className="bg-sand-200 dark:bg-sand-800 flex size-12 items-center justify-center rounded-full">
+        <SearchX className="text-sand-500 dark:text-sand-400 size-5" />
       </div>
       <p className="font-medium text-foreground">{title}</p>
-      <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">{description}</p>
+      <p className="text-sand-500 dark:text-sand-400 max-w-sm text-sm leading-relaxed">{description}</p>
     </div>
   )
 }

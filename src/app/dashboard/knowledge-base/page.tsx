@@ -17,7 +17,7 @@ export default async function KnowledgeBasePage() {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    return <p className="text-muted-foreground">Sign in to view your knowledge base.</p>
+    return <p className="text-sand-500 dark:text-sand-400">Sign in to view your knowledge base.</p>
   }
 
   const [documentsResult, discussionsResult] = await Promise.all([
@@ -28,14 +28,14 @@ export default async function KnowledgeBasePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold">Knowledge base</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-semibold tracking-tight">Knowledge base</h1>
+        <p className="text-sand-500 dark:text-sand-400">
           Upload PDFs, Markdown, or plain text. Each discussion is compared against your documents
           to surface whether it is already answered, partially covered, or a gap.
         </p>
       </div>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle>Upload a document</CardTitle>
           <CardDescription>
@@ -47,25 +47,25 @@ export default async function KnowledgeBasePage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle>Documents</CardTitle>
           <CardDescription>Extracted, chunked, and embedded files.</CardDescription>
         </CardHeader>
         <CardContent>
           {documentsResult.documents.length === 0 ? (
-            <p className="text-muted-foreground">No documents uploaded yet.</p>
+            <p className="text-sand-500 dark:text-sand-400">No documents uploaded yet.</p>
           ) : (
             <ul className="divide-y">
               {documentsResult.documents.map((doc) => (
                 <li key={doc.id} className="flex items-center justify-between gap-3 py-2">
                   <div className="min-w-0">
                     <p className="truncate font-medium">{doc.file_name}</p>
-                    <p className="text-muted-foreground text-xs">
+                    <p className="text-sand-500 dark:text-sand-400 text-xs">
                       {doc.mime_type} · {doc.chunk_count ?? 0} chunks · {doc.char_count ?? 0} chars
                     </p>
                   </div>
-                  <span className="text-muted-foreground shrink-0 text-xs capitalize">
+                  <span className="text-sand-500 dark:text-sand-400 shrink-0 text-xs capitalize">
                     {doc.status}
                   </span>
                 </li>
@@ -75,7 +75,7 @@ export default async function KnowledgeBasePage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle>Discussion coverage</CardTitle>
           <CardDescription>Semantic comparison against your knowledge base.</CardDescription>
@@ -83,7 +83,7 @@ export default async function KnowledgeBasePage() {
         <CardContent className="space-y-4">
           <RefreshCoverageButton />
           {discussionsResult.items.length === 0 ? (
-            <p className="text-muted-foreground">
+            <p className="text-sand-500 dark:text-sand-400">
               No enriched discussions yet. Import and enrich discussions first.
             </p>
           ) : (
@@ -92,7 +92,7 @@ export default async function KnowledgeBasePage() {
                 <li key={discussion.id} className="flex items-center justify-between gap-3 py-2">
                   <div className="min-w-0">
                     <p className="truncate font-medium">{discussion.title}</p>
-                    <p className="text-muted-foreground truncate text-xs">
+                    <p className="text-sand-500 dark:text-sand-400 truncate text-xs">
                       {discussion.summary ?? 'No summary'}
                     </p>
                   </div>

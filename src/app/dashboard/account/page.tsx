@@ -20,9 +20,9 @@ export default async function AccountPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Account</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Account</h1>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle>Profile</CardTitle>
           <CardDescription>Your account details</CardDescription>
@@ -30,26 +30,26 @@ export default async function AccountPage() {
         <CardContent>
           <dl className="grid gap-3 text-sm sm:grid-cols-2">
             <div>
-              <dt className="text-muted-foreground">Email</dt>
+              <dt className="text-sand-500 dark:text-sand-400">Email</dt>
               <dd>{user?.email}</dd>
             </div>
             <div>
-              <dt className="text-muted-foreground">Full name</dt>
+              <dt className="text-sand-500 dark:text-sand-400">Full name</dt>
               <dd>{profile?.full_name ?? '—'}</dd>
             </div>
             <div>
-              <dt className="text-muted-foreground">Username</dt>
+              <dt className="text-sand-500 dark:text-sand-400">Username</dt>
               <dd>{profile?.username ?? '—'}</dd>
             </div>
             <div>
-              <dt className="text-muted-foreground">Plan</dt>
+              <dt className="text-sand-500 dark:text-sand-400">Plan</dt>
               <dd className="capitalize">{profile?.plan ?? 'free'}</dd>
             </div>
           </dl>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle>Session</CardTitle>
           <CardDescription>Sign out of this device</CardDescription>

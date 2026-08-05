@@ -34,12 +34,12 @@ const columns = [
       <div className="min-w-0 max-w-md">
         <Link
           href={`/dashboard/discussions/${row.original.id}`}
-          className="font-medium text-foreground hover:underline hover:text-primary transition-colors"
+          className="font-medium text-foreground hover:underline hover:text-bush-600 dark:hover:text-bush-400 transition-colors"
         >
           {String(getValue())}
         </Link>
         {row.original.summary && (
-          <p className="text-muted-foreground line-clamp-2 mt-0.5 text-xs leading-relaxed">
+          <p className="text-sand-500 dark:text-sand-400 line-clamp-2 mt-0.5 text-xs leading-relaxed">
             {row.original.summary}
           </p>
         )}
@@ -51,7 +51,7 @@ const columns = [
     cell: ({ row }) => {
       const name =
         row.original.sourceName ?? (row.original.subreddit ? `r/${row.original.subreddit}` : null)
-      return <span className="text-muted-foreground truncate text-sm">{name ?? '—'}</span>
+      return <span className="text-sand-500 dark:text-sand-400 truncate text-sm">{name ?? '—'}</span>
     },
   }),
   columnHelper.accessor('category', {
@@ -62,7 +62,7 @@ const columns = [
           {row.original.category}
         </Badge>
       ) : (
-        <span className="text-muted-foreground text-sm">—</span>
+        <span className="text-sand-500 dark:text-sand-400 text-sm">—</span>
       ),
   }),
   columnHelper.accessor('priorityScore', {
@@ -81,7 +81,7 @@ const columns = [
   columnHelper.accessor('numComments', {
     header: 'Engagement',
     cell: ({ row }) => (
-      <span className="text-muted-foreground whitespace-nowrap tabular-nums text-sm">
+      <span className="text-sand-500 dark:text-sand-400 whitespace-nowrap tabular-nums text-sm">
         {row.original.numComments} comments · {row.original.score} pts
       </span>
     ),
@@ -91,7 +91,7 @@ const columns = [
     cell: ({ row }) => {
       const at = row.original.publishedAt ?? row.original.fetchedAt
       return (
-        <span className="text-muted-foreground text-xs whitespace-nowrap">
+        <span className="text-sand-500 dark:text-sand-400 text-xs whitespace-nowrap">
           {at ? new Date(at).toLocaleDateString() : '—'}
         </span>
       )
@@ -142,7 +142,7 @@ export function DiscussionsTable({
         />
       ) : (
         <>
-          <p className="text-muted-foreground text-sm" aria-live="polite">
+          <p className="text-sand-500 dark:text-sand-400 text-sm" aria-live="polite">
             {total} discussion{total === 1 ? '' : 's'}
           </p>
           <div className="rounded-lg border">
@@ -153,7 +153,7 @@ export function DiscussionsTable({
                     {headerGroup.headers.map((header) => (
                       <TableHead
                         key={header.id}
-                        className="text-xs font-semibold uppercase tracking-wider"
+                        className="text-xs font-semibold uppercase tracking-wider text-sand-600 dark:text-sand-400"
                       >
                         {flexRender(header.column.columnDef.header, header.getContext())}
                       </TableHead>
@@ -165,7 +165,7 @@ export function DiscussionsTable({
                 {table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}
-                    className="hover:bg-accent/50 transition-colors"
+                    className="hover:bg-sand-100/50 dark:hover:bg-sand-800/30 transition-colors"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id} className="align-top">
@@ -189,7 +189,7 @@ export function DiscussionsTable({
               <ArrowLeft />
               Previous
             </Button>
-            <span className="text-muted-foreground text-sm tabular-nums">
+            <span className="text-sand-500 dark:text-sand-400 text-sm tabular-nums">
               Page {page} of {totalPages}
             </span>
             <Button

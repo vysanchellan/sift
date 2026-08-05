@@ -38,7 +38,7 @@ export default function DashboardPage() {
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground mt-1 text-sm">
+          <p className="text-sand-500 dark:text-sand-400 mt-1 text-sm">
             {counts
               ? `${counts.discussions} discussions · ${counts.enriched} enriched · ${counts.sources} sources · ${counts.courses} courses`
               : 'Track priorities, knowledge gaps, and opportunities across your discussions.'}

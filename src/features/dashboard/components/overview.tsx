@@ -48,12 +48,12 @@ export function Overview({
   const cards = [
     {
       key: 'sources',
-      icon: <MessagesSquare className="text-muted-foreground size-4" />,
+      icon: <MessagesSquare className="text-bush-600 dark:text-bush-400 size-4" />,
       title: 'Most active sources',
       description: 'By discussion count published today.',
       body:
         data.sourcesToday.length === 0 ? (
-          <p className="text-muted-foreground text-sm">No discussion activity today.</p>
+          <p className="text-sand-500 dark:text-sand-400 text-sm">No discussion activity today.</p>
         ) : (
           <ul className="space-y-1">
             {data.sourcesToday.map((source) => (
@@ -63,10 +63,10 @@ export function Overview({
                   onClick={() => onSelectSource(source.id)}
                   className="hover:bg-accent/50 focus-visible:ring-ring group flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none transition-colors focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium group-hover:text-primary">
+                  <span className="min-w-0 truncate font-medium group-hover:text-bush-600 dark:group-hover:text-bush-400">
                     {source.name}
                   </span>
-                  <span className="text-muted-foreground flex shrink-0 items-center gap-2 text-xs">
+                  <span className="text-sand-500 dark:text-sand-400 flex shrink-0 items-center gap-2 text-xs">
                     <span className="tabular-nums">{compact(source.comments)}</span>
                     <Badge variant="outline" className="tabular-nums">
                       {source.count}
@@ -80,12 +80,12 @@ export function Overview({
     },
     {
       key: 'priority',
-      icon: <Activity className="text-muted-foreground size-4" />,
+      icon: <Activity className="text-bush-600 dark:text-bush-400 size-4" />,
       title: 'Top priority',
       description: 'Highest transparent priority scores.',
       body:
         data.topPriority.length === 0 ? (
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sand-500 dark:text-sand-400 text-sm">
             No scored discussions yet. Run the scoring pipeline.
           </p>
         ) : (
@@ -96,7 +96,7 @@ export function Overview({
                   href={`/dashboard/discussions/${discussion.id}`}
                   className="hover:bg-accent/50 focus-visible:ring-ring group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm outline-none transition-colors focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium group-hover:text-primary">
+                  <span className="min-w-0 truncate font-medium group-hover:text-bush-600 dark:group-hover:text-bush-400">
                     {discussion.title}
                   </span>
                   <ScoreBadge score={discussion.priorityScore} />
@@ -108,12 +108,12 @@ export function Overview({
     },
     {
       key: 'trends',
-      icon: <TrendingUp className="text-muted-foreground size-4" />,
+      icon: <TrendingUp className="text-bush-600 dark:text-bush-400 size-4" />,
       title: 'Trending topics',
       description: 'Rising keyword volume and engagement.',
       body:
         data.trendingTopics.length === 0 ? (
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sand-500 dark:text-sand-400 text-sm">
             No rising topics yet. Run trend detection.
           </p>
         ) : (
@@ -125,7 +125,7 @@ export function Overview({
                   onClick={() => onSelectTopic(trend.topic)}
                   className="hover:bg-accent/50 focus-visible:ring-ring group flex w-full items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-sm outline-none transition-colors focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium group-hover:text-primary">
+                  <span className="min-w-0 truncate font-medium group-hover:text-bush-600 dark:group-hover:text-bush-400">
                     {trend.topic}
                   </span>
                   <span className="flex shrink-0 items-center gap-2 text-xs">
@@ -139,12 +139,12 @@ export function Overview({
     },
     {
       key: 'opportunities',
-      icon: <Sparkles className="text-muted-foreground size-4" />,
+      icon: <Sparkles className="text-bush-600 dark:text-bush-400 size-4" />,
       title: 'Opportunities',
       description: 'High buying intent, low competition.',
       body:
         data.opportunities.length === 0 ? (
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sand-500 dark:text-sand-400 text-sm">
             No low-competition, high-intent picks right now.
           </p>
         ) : (
@@ -155,7 +155,7 @@ export function Overview({
                   href={`/dashboard/discussions/${discussion.id}`}
                   className="hover:bg-accent/50 focus-visible:ring-ring group flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-sm outline-none transition-colors focus-visible:ring-2"
                 >
-                  <span className="min-w-0 truncate font-medium group-hover:text-primary">
+                  <span className="min-w-0 truncate font-medium group-hover:text-bush-600 dark:group-hover:text-bush-400">
                     {discussion.title}
                   </span>
                   <ScoreBadge score={discussion.priorityScore} />
@@ -177,7 +177,7 @@ export function Overview({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25, delay: index * 0.06, ease: 'easeOut' }}
           >
-            <Card className="h-full border-border/60 shadow-sm transition-shadow hover:shadow-md">
+            <Card className="h-full border-border/60 shadow-sm transition-shadow hover:shadow-md hover:shadow-bush-900/10">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-sm">
                   {card.icon}

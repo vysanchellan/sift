@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Bricolage_Grotesque, Inter } from 'next/font/google'
+import { ThemeProvider } from 'next-themes'
 import { QueryProvider } from '@/components/query-provider'
 import { ToastProvider } from '@/components/ui/toast'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const display = Bricolage_Grotesque({
+  variable: '--font-display',
   subsets: ['latin'],
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const sans = Inter({
+  variable: '--font-sans',
   subsets: ['latin'],
 })
 
@@ -25,11 +26,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <QueryProvider>
-          <ToastProvider>{children}</ToastProvider>
-        </QueryProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${display.variable} ${sans.variable} antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <QueryProvider>
+            <ToastProvider>{children}</ToastProvider>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

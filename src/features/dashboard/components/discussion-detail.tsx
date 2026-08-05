@@ -73,7 +73,7 @@ function contentIdeas(ideas: ContentIdeas) {
   >
   if (entries.length === 0) {
     return (
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sand-500 dark:text-sand-400 text-sm">
         No content ideas right now. Ideas surface for coverage gaps, recurring topics, and
         high-engagement discussions.
       </p>
@@ -86,11 +86,11 @@ function contentIdeas(ideas: ContentIdeas) {
         return (
           <li key={key} className="space-y-1">
             <div className="flex items-center gap-2">
-              <Icon className="text-muted-foreground size-4" />
+              <Icon className="text-sand-500 dark:text-sand-400 size-4" />
               <p className="font-medium capitalize">{key}</p>
             </div>
             <p className="pl-6 font-medium text-sm">{idea.title}</p>
-            <p className="text-muted-foreground pl-6 text-sm leading-relaxed">{idea.reason}</p>
+            <p className="text-sand-500 dark:text-sand-400 pl-6 text-sm leading-relaxed">{idea.reason}</p>
           </li>
         )
       })}
@@ -144,7 +144,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
     <div className="space-y-6">
       <Link
         href="/dashboard"
-        className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 text-sm font-medium transition-colors focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none rounded-md px-1"
+        className="text-sand-600 dark:text-sand-400 hover:text-bush-600 dark:hover:text-bush-400 inline-flex items-center gap-1.5 text-sm font-medium transition-colors focus-visible:ring-bush-500 focus-visible:ring-2 focus-visible:outline-none rounded-md px-1"
       >
         <ArrowLeft className="size-4" />
         Back to dashboard
@@ -152,7 +152,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
 
       <section aria-label="Discussion" className="space-y-3">
         <h1 className="text-2xl font-semibold tracking-tight">{discussion.title}</h1>
-        <div className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+        <div className="text-sand-600 dark:text-sand-400 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
           {discussion.sourceName && <span className="font-medium">{discussion.sourceName}</span>}
           {discussion.subreddit && <span>r/{discussion.subreddit}</span>}
           {discussion.author && <span>by {discussion.author}</span>}
@@ -165,7 +165,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
               href={discussion.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-primary underline underline-offset-2 hover:text-primary/80 transition-colors"
+              className="inline-flex items-center gap-1 text-bush-600 dark:text-bush-400 underline underline-offset-2 hover:text-bush-700 dark:hover:text-bush-300 transition-colors"
             >
               Open original
               <ExternalLink className="size-3" />
@@ -183,7 +183,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
             {discussion.summary ? (
               <p className="text-sm leading-relaxed">{discussion.summary}</p>
             ) : (
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sand-500 dark:text-sand-400 text-sm">
                 No summary yet. Run the enrichment pipeline to generate one.
               </p>
             )}
@@ -202,7 +202,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
               ))}
             </div>
             {discussion.body && (
-              <details className="text-muted-foreground text-sm">
+              <details className="text-sand-600 dark:text-sand-400 text-sm">
                 <summary className="cursor-pointer hover:text-foreground transition-colors">
                   Read the full post
                 </summary>
@@ -223,16 +223,16 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           <CardContent className="space-y-4">
             <ScoreBreakdown components={discussion.priorityComponents} />
             {data.priorityReasoning ? (
-              <p className="text-muted-foreground border-t pt-3 text-sm leading-relaxed">
+              <p className="text-sand-600 dark:text-sand-400 border-t pt-3 text-sm leading-relaxed">
                 {data.priorityReasoning}
               </p>
             ) : (
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sand-500 dark:text-sand-400 text-sm">
                 Not scored yet. Run the scoring pipeline to see the factor breakdown.
               </p>
             )}
             {(data.scoreProvider || confidence) && (
-              <p className="text-muted-foreground text-xs">
+              <p className="text-sand-500 dark:text-sand-400 text-xs">
                 {data.scoreProvider ? `Provider: ${data.scoreProvider}` : ''}
                 {data.scoreModel ? ` · Model: ${data.scoreModel}` : ''}
                 {confidence ? ` · ${confidence}` : ''}
@@ -254,7 +254,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
               similarity={discussion.coverageSimilarity}
             />
             {data.matchedContent ? (
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-sand-600 dark:text-sand-400 text-sm leading-relaxed">
                 Best match: &ldquo;
                 {data.matchedContent.length > 280
                   ? `${data.matchedContent.slice(0, 280)}…`
@@ -262,7 +262,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
                 &rdquo;
               </p>
             ) : (
-              <p className="text-muted-foreground text-sm">
+              <p className="text-sand-500 dark:text-sand-400 text-sm">
                 {discussion.coverageStatus
                   ? 'No matched content excerpt is stored for this verdict.'
                   : 'Not compared yet. Run &ldquo;Compare discussions against KB&rdquo; from the Knowledge base page.'}
@@ -274,7 +274,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
         <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Sparkles className="text-muted-foreground size-4" />
+              <Sparkles className="text-bush-600 dark:text-bush-400 size-4" />
               Recommended action
             </CardTitle>
           </CardHeader>
@@ -295,7 +295,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
         <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <MessageSquare className="text-muted-foreground size-4" />
+              <MessageSquare className="text-sand-500 dark:text-sand-400 size-4" />
               Suggested response outline
             </CardTitle>
             <CardDescription>A skeleton for answering this discussion in-thread.</CardDescription>
@@ -304,14 +304,14 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
             {recommendations ? (
               <ol className="space-y-2">
                 {recommendations.responseOutline.map((step, index) => (
-                  <li key={index} className="text-muted-foreground flex gap-3 text-sm leading-relaxed">
+                  <li key={index} className="text-sand-600 dark:text-sand-400 flex gap-3 text-sm leading-relaxed">
                     <span className="text-foreground/40 mt-0.5 tabular-nums shrink-0">{index + 1}.</span>
                     <span>{step}</span>
                   </li>
                 ))}
               </ol>
             ) : (
-              <p className="text-muted-foreground text-sm">No outline available.</p>
+              <p className="text-sand-500 dark:text-sand-400 text-sm">No outline available.</p>
             )}
           </CardContent>
         </Card>
@@ -319,7 +319,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
         <Card className="border-border/60 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Lightbulb className="text-muted-foreground size-4" />
+              <Lightbulb className="text-sand-500 dark:text-sand-400 size-4" />
               Content ideas
             </CardTitle>
             <CardDescription>Blog, FAQ, newsletter, and course-expansion angles.</CardDescription>
@@ -333,7 +333,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
       <Card className="border-border/60 shadow-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <BookOpen className="text-muted-foreground size-4" />
+            <BookOpen className="text-sand-500 dark:text-sand-400 size-4" />
             Course-section matches
           </CardTitle>
           <CardDescription>
@@ -342,7 +342,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
         </CardHeader>
         <CardContent>
           {data.courseMatches.length === 0 ? (
-            <p className="text-muted-foreground text-sm">
+            <p className="text-sand-500 dark:text-sand-400 text-sm">
               No course matches yet. Add courses and run &ldquo;Match course content&rdquo; from the Courses page.
             </p>
           ) : (
@@ -350,7 +350,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
               {data.courseMatches.map((match) => (
                 <li
                   key={match.id}
-                  className="bg-muted/30 flex items-center justify-between gap-3 rounded-md border px-4 py-3 transition-colors hover:bg-muted/50"
+                  className="bg-sand-100/50 dark:bg-sand-800/30 flex items-center justify-between gap-3 rounded-md border px-4 py-3 transition-colors hover:bg-sand-100 dark:hover:bg-sand-800/50"
                 >
                   <div className="min-w-0">
                     <p className="truncate font-medium text-sm">
@@ -359,11 +359,11 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
                         : (match.sectionTitle ?? 'Untitled section')}
                     </p>
                     {match.reason && (
-                      <p className="text-muted-foreground truncate text-xs">{match.reason}</p>
+                      <p className="text-sand-500 dark:text-sand-400 truncate text-xs">{match.reason}</p>
                     )}
                   </div>
                   {match.score != null && (
-                    <span className="text-muted-foreground shrink-0 text-xs tabular-nums font-medium">
+                    <span className="text-sand-500 dark:text-sand-400 shrink-0 text-xs tabular-nums font-medium">
                       {(match.score * 100).toFixed(0)}%
                     </span>
                   )}
@@ -374,7 +374,7 @@ export function DiscussionDetailView({ discussionId }: { discussionId: string })
           <p className="mt-4 text-sm">
             <Link
               href="/dashboard/courses"
-              className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 underline underline-offset-2 transition-colors"
+              className="text-sand-600 dark:text-sand-400 hover:text-bush-600 dark:hover:text-bush-400 inline-flex items-center gap-1.5 underline underline-offset-2 transition-colors"
             >
               <Newspaper className="size-3" />
               Manage courses
